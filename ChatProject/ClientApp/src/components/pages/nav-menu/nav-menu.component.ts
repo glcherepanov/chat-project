@@ -14,6 +14,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.cookieService.set('user-login', 'userLogin');
     const login: string = this.cookieService.get('user-login');
     this.userLogin =  login == null ? 'login' : login;
   }
