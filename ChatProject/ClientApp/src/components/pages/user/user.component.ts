@@ -9,8 +9,8 @@ import { UserType } from '../../../dto/user/UserType';
 export class UserComponent {
   user: UserDto = {
     userId: 1,
-    name: '',
-    login: '',
+    name: 'Ivan',
+    login: 'vanya111',
     password: '',
     type: UserType.User
   };
