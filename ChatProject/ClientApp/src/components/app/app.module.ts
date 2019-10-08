@@ -7,17 +7,15 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from '../pages/nav-menu/nav-menu.component';
 import { UserComponent } from '../pages/user/user.component';
-import { CounterComponent } from '../pages/counter/counter.component';
-import { FetchDataComponent } from '../pages/fetch-data/fetch-data.component';
 import { CookieService } from 'ngx-cookie-service';
+import { FriendsComponent } from '../pages/friends/friends.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     UserComponent,
-    CounterComponent,
-    FetchDataComponent
+    FriendsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -25,8 +23,7 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: UserComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'friends', component: FriendsComponent}
     ])
   ],
   providers: [CookieService],
