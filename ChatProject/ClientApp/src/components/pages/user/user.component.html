@@ -5,7 +5,33 @@
   </head>
   <body>
     <div class="page-header">
+      <!-- тут вместо логина можно сделать роль пользователя в строку тип админ или обычный пользователь, а логин отобразить в другой строке, где данные -->
       <h1>Личный кабинет  <small>{{user.login}}</small></h1>
+    </div>
+    <!-- не знаю как это будет, но либо это будет какой-то список либо все таки можно сделать так, если надо будет человеку. -->
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Ваши данные
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          <!--помимо данных тут еще лежит кол-во сообщений отправленных, кол-во бесед, друзей -->
+          тут лежат данные пользователя
+        </div>
+      </div>
+    </div>
+    
+    <div>
+        <button type="button" class="btn btn-outline-primary">Сменить пароль</button>
+    </div>
+
+    <div>
+      <button type="button" class="btn btn-outline-primary">Отобразить отправленные сообщения</button>
     </div>
   </body>
 </html>
