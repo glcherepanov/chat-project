@@ -5,6 +5,7 @@ import { UserHttpService } from '../../../HttpServices/UserHttpService';
 @Component({
     selector: 'app-friends',
     templateUrl: './friends.component.html',
+    providers: [UserHttpService]
 })
 
 export class FriendsComponent {
