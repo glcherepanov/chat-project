@@ -13,12 +13,12 @@ export class UserHttpService {
     }
 
     public getUsers(): Observable<UserDto[]> {
-        return this._httpService.get<UserDto[]>('api/Users/users');
+        return this._httpService.get<UserDto[]>('api/user/users');
     }
 
     public removeUser(_userId: number): Observable<void> {
         const params: HttpParams = new HttpParams()
             .set('userId', _userId.toString());
-        return this._httpService.post('api/User/remove', params);
+        return this._httpService.post('api/user/remove', params);
     }
 }

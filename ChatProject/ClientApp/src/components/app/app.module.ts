@@ -9,6 +9,7 @@ import { NavMenuComponent } from '../pages/nav-menu/nav-menu.component';
 import { UserComponent } from '../pages/user/user.component';
 import { CookieService } from 'ngx-cookie-service';
 import { FriendsComponent } from '../pages/friends/friends.component';
+import { HttpService } from '../../HttpServices/HttpService';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { FriendsComponent } from '../pages/friends/friends.component';
       { path: 'friends', component: FriendsComponent}
     ])
   ],
-  providers: [CookieService],
+  providers: [CookieService, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 ﻿namespace EntityFramework.Entities
 {
-    public class Chat
+    public class Chat : IEntity
     {
         public int Id { get; set; }
         public ChatType Type { get; set; }
