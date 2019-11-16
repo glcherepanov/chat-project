@@ -2,7 +2,7 @@
 
 namespace EntityFramework.Entities
 {
-    public class Message
+    public class Message : IEntity
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
