@@ -6,32 +6,65 @@
   <body>
     <div class="page-header">
       <!-- тут вместо логина можно сделать роль пользователя в строку тип админ или обычный пользователь, а логин отобразить в другой строке, где данные -->
-      <h1>Личный кабинет  <small>{{user.login}}</small></h1>
+      <h1>Личный кабинет  <small>{{mainUser.login}}</small></h1>
     </div>
     <!-- не знаю как это будет, но либо это будет какой-то список либо все таки можно сделать так, если надо будет человеку. -->
-    <div class="card">
-      <div class="card-header" id="headingOne">
-        <h5 class="mb-0">
-          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Ваши данные
-          </button>
-        </h5>
-      </div>
-  
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-        <div class="card-body">
-          <!--помимо данных тут еще лежит кол-во сообщений отправленных, кол-во бесед, друзей -->
-          тут лежат данные пользователя
-        </div>
-      </div>
-    </div>
-    
     <div>
+      <h3>Ваши данные</h3>
+      <ul>
+        <li>Имя: {{mainUser.name}}</li>
+        <li>Логин: {{mainUser.login}}</li>
+        <li *ngIf="mainUser.type == 2">Забанен</li>
+        <li *ngIf="mainUser.type == 1">Права: Админ</li>
+      </ul>
+    </div>
+    <hr>
+    <div *ngIf="mainUser.type != 2">
         <button type="button" class="btn btn-outline-primary">Сменить пароль</button>
     </div>
-
+    <hr>
     <div>
       <button type="button" class="btn btn-outline-primary">Отобразить отправленные сообщения</button>
     </div>
+    <hr>
+    <div *ngIf="mainUser.type == 1">
+      <h3>Список всех пользователей</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Логин</th>
+            <th scope="col">Права</th>
+            <th scope="col">Изменить права</th>
+            <th scope="col">Удалить</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <th>{{user.userId}}</th>
+            <th>{{user.name}}</th>
+            <th>{{user.login}}</th>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default">Изменить</button>
+                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Админ</a></li>
+                  <li><a href="#">Пользователь</a></li>
+                  <li><a href="#">Бан</a></li>
+                </ul>
+              </div>
+            </td>
+            <td>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-danger" (click)="deleteUser(user.userId)">Удалить</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </body>
 </html>

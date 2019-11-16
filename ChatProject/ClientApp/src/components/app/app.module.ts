@@ -22,7 +22,7 @@ import { FriendsComponent } from '../pages/friends/friends.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: UserComponent, pathMatch: 'full' },
+      { path: 'user', component: UserComponent, pathMatch: 'full' },
       { path: 'friends', component: FriendsComponent}
     ])
   ],
