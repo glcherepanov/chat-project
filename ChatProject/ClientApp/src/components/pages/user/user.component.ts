@@ -5,7 +5,8 @@ import { UserHttpService } from '../../../HttpServices/UserHttpService';
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html'
+  templateUrl: './user.component.html',
+  providers: [UserHttpService]
 })
 
 export class UserComponent {
@@ -22,4 +23,18 @@ export class UserComponent {
       this.users = values;
     });
   }
+
+  public deleteUser(id: number): void {
+    this._userHttpService.removeUser(id).subscribe(() => {
+      this.reloadUser();
+    });
+  }
+
+  mainUser: UserDto = {
+      userId: 1,
+      name: '',
+      login: '',
+      password: '',
+      type: UserType.User
+  };
 }
