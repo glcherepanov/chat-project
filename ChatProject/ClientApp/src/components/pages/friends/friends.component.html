@@ -5,5 +5,25 @@
   </head>
   <body>
     <h1>Ваши друзья</h1>
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Имя</th>
+          <th scope="col">Логин</th>
+          <th scope="col">Удалить из друзей </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <th>{{user.userId}}</th>
+          <th>{{user.name}}</th>
+          <th>{{user.login}}</th>
+          <td>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
