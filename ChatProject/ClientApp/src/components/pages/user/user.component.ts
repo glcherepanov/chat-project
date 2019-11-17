@@ -33,12 +33,4 @@ export class UserComponent {
       this.reloadUser();
     });
   }
-
-  mainUser: UserDto = {
-      userId: 1,
-      name: '',
-      login: '',
-      password: '',
-      type: UserType.User
-  };
 }
