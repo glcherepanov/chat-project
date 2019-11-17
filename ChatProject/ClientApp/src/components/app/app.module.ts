@@ -1,3 +1,4 @@
+import { ChatListComponent } from './../pages/ChatList/ChatList.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +17,8 @@ import { HttpService } from '../../HttpServices/HttpService';
     AppComponent,
     NavMenuComponent,
     UserComponent,
-    FriendsComponent
+    FriendsComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -24,7 +26,8 @@ import { HttpService } from '../../HttpServices/HttpService';
     FormsModule,
     RouterModule.forRoot([
       { path: 'user', component: UserComponent, pathMatch: 'full' },
-      { path: 'friends', component: FriendsComponent}
+      { path: 'friends', component: FriendsComponent},
+      { path: 'chat-list', component: ChatListComponent}
     ])
   ],
   providers: [CookieService, HttpService],
