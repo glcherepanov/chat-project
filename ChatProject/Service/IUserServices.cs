@@ -11,5 +11,6 @@ namespace ChatProject.Service
     {
         List<UserDto> GetUsers();
         void AddUser( User user );
+        UserDto GetUser( int id );
     }
 }

@@ -16,7 +16,7 @@ namespace ChatProject.Controllers
             _service = service;
         }
 
-        [ HttpGet( "users" )]
+        [HttpGet( "users" )]
         public List<UserDto> GetUser( int id )
         {
             return _service.GetUsers();
@@ -26,6 +26,21 @@ namespace ChatProject.Controllers
         public void AddUser()
         {
             _service.AddUser( new User() );
+        }
+
+        [HttpPost( "login" )]
+        public bool CheckUserLoginPassword( UserDto user )
+        {
+            UserDto userIdBase = _service.GetUser( user.Id );
+
+            if ( user.Login == userIdBase.Login && user.Password == userIdBase.Password )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

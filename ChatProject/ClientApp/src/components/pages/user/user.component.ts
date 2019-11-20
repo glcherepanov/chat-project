@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { UserDto } from '../../../dto/user/UserDto';
 import { UserType } from '../../../dto/user/UserType';
 import { UserHttpService } from '../../../HttpServices/UserHttpService';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  providers: [UserHttpService]
+  providers: [UserHttpService, CookieService]
 })
 
 export class UserComponent {
@@ -32,5 +33,16 @@ export class UserComponent {
     this._userHttpService.removeUser(id).subscribe(() => {
       this.reloadUser();
     });
+  }
+
+  public getUserType( type: UserType ): string {
+    switch ( type ) {
+      case UserType.Admin:
+        return 'Админ';
+      case UserType.User:
+        return 'Пользователь';
+      default:
+        return 'бан';
+    }
   }
 }

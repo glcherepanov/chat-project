@@ -11,6 +11,7 @@ import { UserComponent } from '../pages/user/user.component';
 import { CookieService } from 'ngx-cookie-service';
 import { FriendsComponent } from '../pages/friends/friends.component';
 import { HttpService } from '../../HttpServices/HttpService';
+import { LoginComponent } from '../pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HttpService } from '../../HttpServices/HttpService';
     NavMenuComponent,
     UserComponent,
     FriendsComponent,
+    LoginComponent
     ChatListComponent
   ],
   imports: [
@@ -27,6 +29,7 @@ import { HttpService } from '../../HttpServices/HttpService';
     RouterModule.forRoot([
       { path: 'user', component: UserComponent, pathMatch: 'full' },
       { path: 'friends', component: FriendsComponent},
+      { path: 'login', component: LoginComponent },
       { path: 'chat-list', component: ChatListComponent}
     ])
   ],

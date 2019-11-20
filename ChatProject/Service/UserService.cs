@@ -28,12 +28,19 @@ namespace ChatProject.Service
             _context.Users.Add( user );
         }
 
+        public UserDto GetUser(  int id )
+        {
+            return Convert( _context.Users.Where( item => item.Id == id ).FirstOrDefault() ); 
+        }
+
         private UserDto Convert( User user )
         {
             return new UserDto
             {
+                Id = user.Id,
                 Name = user.Name,
                 Login = user.Login,
+                Password = user.Password,
                 Type = user.Type
             };
         }

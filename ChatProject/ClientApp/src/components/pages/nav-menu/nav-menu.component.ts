@@ -9,14 +9,15 @@ import { CookieService } from 'ngx-cookie-service';
 export class NavMenuComponent implements OnInit {
   isExpanded: boolean;
   public userLogin: string;
+  public logged: boolean;
 
   constructor(private cookieService: CookieService) {
   }
 
   public ngOnInit(): void {
     this.cookieService.set('user-login', 'userLogin');
-    const login: string = this.cookieService.get('user-login');
-    this.userLogin =  login == null ? 'login' : login;
+    this.userLogin = this.cookieService.get('user-login');
+    this.logged = this.userLogin == null ? false : true;
   }
 
   collapse() {
