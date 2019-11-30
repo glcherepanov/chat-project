@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'app-chat',
     templateUrl: './ChatPage.component.html',
-    // styleUrls: ['./ChatPage.component.scss'],
+    styleUrls: ['./ChatPage.component.scss'],
     providers: [ChatHttpService]
 })
 
