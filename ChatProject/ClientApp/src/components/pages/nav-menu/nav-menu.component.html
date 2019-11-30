@@ -22,6 +22,21 @@
                             <span class='glyphicon glyphicon-home'></span> Личный кабинет: {{ userLogin }}
                         </a>
                     </li>
+                    <li>
+                        <a (click)="LogOut()">
+                                <span class='glyphicon glyphicon-log-out'></span> Выход
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a [routerLink]='["/chat-list"]' (click)='collapse()'>
+                            <span class='glyphicon glyphicon-envelope'></span> Чаты
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a [routerLink]='["/friends"]' (click)='collapse()'>
+                            <span class='glyphicon glyphicon-user'></span> Друзья
+                        </a>
+                    </li>
                 </ng-template>
                 <ng-template #authBlock>
                     <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
@@ -35,16 +50,6 @@
                         </a>
                     </li>
                 </ng-template>  
-                <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/friends"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-user'></span> Друзья
-                    </a>
-                </li>
-                <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/chat-list"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-envelope'></span> Чаты
-                    </a>
-                </li>
             </ul>
         </div>
     </div>

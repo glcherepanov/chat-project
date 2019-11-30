@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,13 +12,22 @@ export class NavMenuComponent implements OnInit {
   public userLogin: string;
   public logged: boolean;
 
-  constructor(private cookieService: CookieService) {
+  constructor(private cookieService: CookieService, private router: Router, private activatedRouter: ActivatedRoute) {
   }
 
   public ngOnInit(): void {
-    this.cookieService.set('user-login', 'userLogin');
-    this.userLogin = this.cookieService.get('user-login');
-    this.logged = this.userLogin == null ? false : true;
+    this.getUserLogin();
+
+    this.router.events
+      .subscribe( e => {
+        this.getUserLogin();
+      } );
+  }
+
+  public LogOut(): void {
+    this.cookieService.delete('login');
+    this.router.navigateByUrl('/');
+    this.logged = false;
   }
 
   collapse() {
@@ -26,5 +36,10 @@ export class NavMenuComponent implements OnInit {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  private getUserLogin(): void {
+    this.userLogin = this.cookieService.get('login');
+    this.logged = this.userLogin === '' ? false : true;
   }
 }

@@ -22,25 +22,18 @@ namespace ChatProject.Controllers
             return _service.GetUsers();
         }
 
-        [HttpGet( "add-user" )]
-        public void AddUser()
+        [HttpPost( "add" )]
+        public bool AddUser( [FromBody] UserDto user )
         {
-            _service.AddUser( new User() );
+           return _service.AddUser( user );
         }
 
-        [HttpPost( "login" )]
-        public bool CheckUserLoginPassword( UserDto user )
+        [HttpGet( "login" )]
+        public bool CheckUserLoginPassword( string login, string password )
         {
-            UserDto userIdBase = _service.GetUser( user.Id );
+            UserDto userIdBase = _service.GetUserByLogin( login );
 
-            if ( user.Login == userIdBase.Login && user.Password == userIdBase.Password )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return password == userIdBase?.Password;
         }
     }
 }

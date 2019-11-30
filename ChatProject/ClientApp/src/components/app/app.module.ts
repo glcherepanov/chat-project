@@ -12,14 +12,16 @@ import { CookieService } from 'ngx-cookie-service';
 import { FriendsComponent } from '../pages/friends/friends.component';
 import { HttpService } from '../../HttpServices/HttpService';
 import { LoginComponent } from '../pages/login/login.component';
+import { RegistrationComponent } from '../pages/registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     UserComponent,
+    LoginComponent,
+    RegistrationComponent,
     FriendsComponent,
-    LoginComponent
     ChatListComponent
   ],
   imports: [
@@ -28,9 +30,10 @@ import { LoginComponent } from '../pages/login/login.component';
     FormsModule,
     RouterModule.forRoot([
       { path: 'user', component: UserComponent, pathMatch: 'full' },
-      { path: 'friends', component: FriendsComponent},
       { path: 'login', component: LoginComponent },
-      { path: 'chat-list', component: ChatListComponent}
+      { path: 'registration', component: RegistrationComponent },
+      { path: 'chat-list', component: ChatListComponent },
+      { path: 'friends', component: FriendsComponent }
     ])
   ],
   providers: [CookieService, HttpService],
