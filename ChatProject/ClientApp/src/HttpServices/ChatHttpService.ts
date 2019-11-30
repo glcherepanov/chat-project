@@ -20,6 +20,10 @@ export class ChatHttpService {
     public getMessages(chatId: number): Observable<MessageDto> {
         const params: HttpParams = new HttpParams()
             .set('chatId', chatId.toString());
-        return this._httpService.get<MessageDto>('api/ChatApi/message', params);
+        return this._httpService.get<MessageDto>('api/ChatApi/message');
     }
+
+    public sendMessage(chatId: number, userSendId: number, message: MessageDto): void {
+        
+    } 
 }
