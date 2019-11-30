@@ -13,16 +13,16 @@ export class ChatListComponent {
     public chats: ChatDto[];
 
     public constructor(chatsService: ChatHttpService) {
-        this._chatHttpService = chatsService;
-        this._chatHttpService.getChats().subscribe(values => {
-            this.chats = values;
-        });
-        this.reloadChats();
+        // this._chatHttpService = chatsService;
+        // this._chatHttpService.getChats().subscribe(values => {
+        //     this.chats = values;
+        // });
+        // this.reloadChats();
     }
 
-    private reloadChats(): void {
-        this._chatHttpService.getChats().subscribe(values => {
-          this.chats = values;
-        });
-    }
+    // private reloadChats(): void {
+    //     this._chatHttpService.getChats().subscribe(values => {
+    //       this.chats = values;
+    //     });
+    // }
 }

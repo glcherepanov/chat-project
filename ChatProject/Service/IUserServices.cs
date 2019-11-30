@@ -10,6 +10,8 @@ namespace ChatProject.Service
     public interface IUserServices
     {
         List<UserDto> GetUsers();
-        void AddUser( User user );
+        bool AddUser( UserDto user );
+        UserDto GetUser( int id );
+        UserDto GetUserByLogin( string login );
     }
 }
