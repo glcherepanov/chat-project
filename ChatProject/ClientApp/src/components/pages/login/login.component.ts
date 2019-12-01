@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { UserHttpService } from '../../../HttpServices/UserHttpService';
 import { Router } from '@angular/router';
+import { Md5 } from 'md5-typescript';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
   public Auth(): void {
     const _this = this;
     let logged = false;
-    this._userHttpService.login( this.login, this.password ).subscribe({
+    this._userHttpService.login( this.login, Md5.init(this.password) ).subscribe({
       next(response: boolean) { logged = response; },
       complete() {
         if ( logged ) {

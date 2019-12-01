@@ -13,5 +13,6 @@ namespace ChatProject.Service
         bool AddUser( UserDto user );
         UserDto GetUser( int id );
         UserDto GetUserByLogin( string login );
+        List<UserDto> GetFriends( string login );
     }
 }

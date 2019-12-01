@@ -12,6 +12,18 @@ export class UserHttpService {
         this._httpService = httpService;
     }
 
+    public getUser( login: string ): Observable<UserDto> {
+        const params: HttpParams = new HttpParams()
+            .set('login', login.toString());
+        return this._httpService.get<UserDto>( 'api/user/', params );
+    }
+
+    public getFriends( login: string ): Observable<UserDto[]> {
+        const params: HttpParams = new HttpParams()
+            .set('login', login.toString());
+        return this._httpService.get<UserDto[]>( 'api/user/friends', params );
+    }
+
     public getUsers(): Observable<UserDto[]> {
         return this._httpService.get<UserDto[]>('api/user/users');
     }

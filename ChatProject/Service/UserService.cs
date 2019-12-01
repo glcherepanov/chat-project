@@ -36,6 +36,8 @@ namespace ChatProject.Service
                     Type = UserType.User
                 } );
 
+                _context.SaveChanges();
+
                 return true;
             }
             else
@@ -54,16 +56,32 @@ namespace ChatProject.Service
             return Convert( _context.Users.Where( item => item.Login == login ).FirstOrDefault() );
         }
 
+        public List<UserDto> GetFriends( string login )
+        {
+            User user = _context.Users.Where( item => item.Login == login ).FirstOrDefault();
+            List<int> friendsId = _context.UserFriends.Where( friend => friend.UserId == user.Id ).Select( friend => friend.FriendId ).ToList();
+            List<User> friends = _context.Users.Where( item => friendsId.Contains( item.Id ) ).ToList();
+
+            return friends.ConvertAll( Convert );
+        }
+
         private UserDto Convert( User user )
         {
-            return new UserDto
+            if ( user != null )
             {
-                Id = user.Id,
-                Name = user.Name,
-                Login = user.Login,
-                Password = user.Password,
-                Type = user.Type
-            };
+                return new UserDto
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Login = user.Login,
+                    Password = user.Password,
+                    Type = user.Type
+                };
+            }
+            else
+            {
+                return new UserDto();
+            }
         }
     }
 }

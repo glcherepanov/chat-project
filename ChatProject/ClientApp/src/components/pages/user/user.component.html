@@ -29,6 +29,7 @@
     <hr>
     <div *ngIf="mainUser.type == 1">
       <h3>Список всех пользователей</h3>
+      <button type="button" class="btn btn-primary btn-sm" (click)="reloadUsersList()"><span class="glyphicon glyphicon-refresh"></span></button>
       <table class="table">
         <thead>
           <tr>

@@ -16,10 +16,22 @@ namespace ChatProject.Controllers
             _service = service;
         }
 
+        [HttpGet()]
+        public UserDto GetUser( string login )
+        {
+            return _service.GetUserByLogin( login );
+        }
+
         [HttpGet( "users" )]
         public List<UserDto> GetUser( int id )
         {
             return _service.GetUsers();
+        }
+
+        [HttpGet( "friends" )]
+        public List<UserDto> GetUserFriends( string login )
+        {
+            return _service.GetFriends( login );
         }
 
         [HttpPost( "add" )]

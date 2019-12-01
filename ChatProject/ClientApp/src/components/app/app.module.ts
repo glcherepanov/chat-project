@@ -10,6 +10,7 @@ import { NavMenuComponent } from '../pages/nav-menu/nav-menu.component';
 import { UserComponent } from '../pages/user/user.component';
 import { CookieService } from 'ngx-cookie-service';
 import { FriendsComponent } from '../pages/friends/friends.component';
+import { FriendComponent } from '../pages/friend/friend.component';
 import { HttpService } from '../../HttpServices/HttpService';
 import { LoginComponent } from '../pages/login/login.component';
 import { RegistrationComponent } from '../pages/registration/registration.component';
@@ -22,6 +23,7 @@ import { RegistrationComponent } from '../pages/registration/registration.compon
     LoginComponent,
     RegistrationComponent,
     FriendsComponent,
+    FriendComponent,
     ChatListComponent
   ],
   imports: [
@@ -33,7 +35,8 @@ import { RegistrationComponent } from '../pages/registration/registration.compon
       { path: 'login', component: LoginComponent },
       { path: 'registration', component: RegistrationComponent },
       { path: 'chat-list', component: ChatListComponent },
-      { path: 'friends', component: FriendsComponent }
+      { path: 'friends', component: FriendsComponent },
+      { path: 'friend/:login', component: FriendComponent }
     ])
   ],
   providers: [CookieService, HttpService],

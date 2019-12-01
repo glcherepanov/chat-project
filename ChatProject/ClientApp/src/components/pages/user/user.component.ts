@@ -15,15 +15,20 @@ export class UserComponent {
   public users: UserDto[];
   public mainUser: UserDto = new UserDto ();
 
-  public constructor(userHttpService: UserHttpService) {
+  public constructor(userHttpService: UserHttpService, private _cookie: CookieService) {
     this._userHttpService = userHttpService;
-    this.reloadUser();
-    this.mainUser.name = 'User';
-    this.mainUser.login = 'Login';
-    this.mainUser.type = UserType.Admin;
+    this.reloadUserData();
+    this.reloadUsersList();
   }
 
-  private reloadUser(): void {
+  private reloadUserData(): void {
+    console.log(this._cookie.get( 'login' ));
+    this._userHttpService.getUser( this._cookie.get( 'login' ) ).subscribe(value => {
+      this.mainUser = value;
+    });
+  }
+
+  private reloadUsersList(): void {
     this._userHttpService.getUsers().subscribe(values => {
       this.users = values;
     });
@@ -31,7 +36,7 @@ export class UserComponent {
 
   public deleteUser(id: number): void {
     this._userHttpService.removeUser(id).subscribe(() => {
-      this.reloadUser();
+      this.reloadUserData();
     });
   }
 
