@@ -3,7 +3,7 @@
         <h2 class="form-signin-heading">Registration</h2>
         <input [(ngModel)]="user.name" name="login" type="text" class="form-control" placeholder="Name" required="" autofocus="">
         <input [(ngModel)]="user.login" name="login" type="text" class="form-control" placeholder="Login" required="" autofocus="">
-        <input [(ngModel)]="user.password" name="password" type="password" class="form-control" placeholder="Password" required="">
+        <input [(ngModel)]="password" name="password" type="password" class="form-control" placeholder="Password" required="">
         <button class="btn btn-lg btn-primary btn-block" (click)="registration()">Registration</button>
     </form>
     <div *ngIf="error" class="alert alert-danger" role="alert">Этот логин уже занят</div>

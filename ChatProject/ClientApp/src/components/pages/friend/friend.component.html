@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+      <div>
+          <h3>Данные пользователя</h3>
+          <ul>
+            <li>Имя: {{friend.name}}</li>
+            <li>Логин: {{friend.login}}</li>
+            <li *ngIf="friend.type == 2">Забанен</li>
+            <li *ngIf="friend.type == 1">Права: Админ</li>
+          </ul>
+          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <button type="button" class="btn btn-primary">Написать сообщение</button>
+            <button type="button" class="btn btn-primary">Добавить в друзья</button>
+            <button type="button" class="btn btn-danger">Удалить из друзей</button>
+          </div>
+      </div>
+  </body>
+</html>

@@ -1,26 +1,30 @@
 import { Component } from '@angular/core';
 import { UserDto } from '../../../dto/user/UserDto';
 import { UserHttpService } from '../../../HttpServices/UserHttpService';
-import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'app-friends',
-    templateUrl: './friends.component.html',
+    selector: 'app-friend',
+    templateUrl: './friend.component.html',
     providers: [UserHttpService]
 })
 
-export class FriendsComponent {
+export class FriendComponent {
   private readonly _userHttpService: UserHttpService;
-  public users: UserDto[];
+  public friend: UserDto = new UserDto();
+  public friendLogin: string;
 
-  public constructor(userHttpService: UserHttpService, private _cookie: CookieService) {
+  public constructor(userHttpService: UserHttpService, route: ActivatedRoute) {
     this._userHttpService = userHttpService;
+    route.params.subscribe(params => {
+      this.friendLogin = params['login'];
+    });
     this.reloadUser();
   }
 
   private reloadUser(): void {
-    this._userHttpService.getFriends( this._cookie.get('login') ).subscribe(values => {
-      this.users = values;
+    this._userHttpService.getUser( this.friendLogin ).subscribe(value => {
+      this.friend = value;
     });
   }
 
