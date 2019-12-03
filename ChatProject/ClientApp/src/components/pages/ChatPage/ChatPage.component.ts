@@ -2,12 +2,13 @@ import { MessageDto } from './../../../dto/message/MessageDto';
 import { Component } from '@angular/core';
 import { ChatHttpService } from './../../../HttpServices/ChatHttpService';
 import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common'
 
 @Component({
     selector: 'app-chat',
     templateUrl: './ChatPage.component.html',
     styleUrls: ['./ChatPage.component.scss'],
-    providers: [ChatHttpService]
+    providers: [ChatHttpService, DatePipe]
 })
 
 export class ChatPageComponent {
@@ -31,5 +32,9 @@ export class ChatPageComponent {
         this._chatHttpService.getMessages(this.currChatId).subscribe(values => {
             this.messages = values;
         });
+    }
+
+    public dateToString(date: Date): string {
+        return date.toLocaleString();
     }
 }
