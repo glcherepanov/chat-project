@@ -29,11 +29,11 @@ export class HttpService {
         this.addDiv(this.preloaderElement, 'preloader');
         const httpHeaders = new HttpHeaders().set('Accept', 'application/json');
         return this._httpClient.get<T>(this._baseUrl + url, {headers: httpHeaders, params: params}).pipe(
-            tap(_ => {
-                this.removeDiv(this.preloaderElement);
-            }, () => {
-                this.removeDiv(this.preloaderElement);
-            })
+            // tap(_ => {
+            //     this.removeDiv(this.preloaderElement);
+            // }, () => {
+            //     this.removeDiv(this.preloaderElement);
+            // })
         );
     }
 

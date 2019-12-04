@@ -1,0 +1,117 @@
+/* Chat containers */
+.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.chat {
+    width: auto;
+}
+
+/* Darker chat container */
+.darker {
+    border-color: #ccc;
+    background-color: #ddd;
+}
+
+/* Clear floats */
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style images */
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+/* Style the right image */
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+    color: #999;
+}
+
+#input-box {
+    max-height: 1.5rem;
+    height: 1.5rem;
+    cursor: text;
+    position: relative;
+    overflow: hidden;
+    padding: 0 .5rem;
+    line-height: 1.5rem;
+    background-color: #f9f9f9;
+    font-weight: 400;
+    
+    #input-box-field {
+      
+      display: inline-block;
+      
+      &:focus { outline: 0; }
+      
+      position: absolute;
+      top: 0;
+      left: .5rem;
+      right: .5rem;
+      white-space: nowrap;
+      overflow-x: scroll; // скрытие скроллбара
+      min-height: 2.5rem;
+      resize: none;
+      text-overflow: ellipsis;
+      
+      &:not(:empty) ~ #input-box-placeholder { display: none; }
+      &:empty { caret-color: darken(main-color,15%); }
+      
+      user-select: text;
+      -webkit-touch-callout: text;
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      -o-user-select: text;
+      
+      br, p, div { display: none; }
+
+      .emoji {
+        cursor: text;
+        vertical-align: middle;
+        display: inline;
+        max-width: 16px;
+        min-width: 16px;
+        max-height: 16px;
+        min-height: 16px;
+      }
+      
+    }
+
+    #input-box-placeholder {
+      position: absolute;
+      top: 0;
+      left: .5rem;
+      right: .5rem;
+      pointer-events: none;
+      color: darken(#f9f9f9, 15%);  
+      
+      &::before { content: attr(data-ph); }
+    }
+  
+  }

@@ -12,13 +12,36 @@ export class UserHttpService {
         this._httpService = httpService;
     }
 
-    public getUsers(): Observable<UserDto[]> {
-        return this._httpService.get<UserDto[]>('api/Users/users');
+    public getUser( login: string ): Observable<UserDto> {
+        const params: HttpParams = new HttpParams()
+            .set('login', login.toString());
+        return this._httpService.get<UserDto>( 'api/user/', params );
     }
 
-    public removeUser(_userId: number): Observable<void> {
+    public getFriends( login: string ): Observable<UserDto[]> {
         const params: HttpParams = new HttpParams()
-            .set('userId', _userId.toString());
-        return this._httpService.post('api/User/remove', params);
+            .set('login', login.toString());
+        return this._httpService.get<UserDto[]>( 'api/user/friends', params );
+    }
+
+    public getUsers(): Observable<UserDto[]> {
+        return this._httpService.get<UserDto[]>('api/user/users');
+    }
+
+    public removeUser(userId: number): Observable<void> {
+        const params: HttpParams = new HttpParams()
+            .set('userId', userId.toString());
+        return this._httpService.post('api/user/remove', params);
+    }
+
+    public add( user: UserDto ): Observable<boolean> {
+        return this._httpService.post<UserDto, boolean>('api/user/add', user);
+    }
+
+    public login(login: string, password: string): Observable<boolean> {
+        const params: HttpParams = new HttpParams()
+            .set('login', login.toString())
+            .set('password', password.toString());
+        return this._httpService.get<boolean>('api/user/login', params);
     }
 }

@@ -2,12 +2,11 @@
 
 namespace ChatProject.Dto
 {
-    public class UserDto
+    public class ChatDto
     {
         public int Id { get; set; }
+        public ChatType Type { get; set; }
+        public string Image { get; set; }
         public string Name { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public UserType Type { get; set; }
     }
 }

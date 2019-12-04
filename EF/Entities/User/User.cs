@@ -1,8 +1,6 @@
-﻿using EntityFramework.Entities;
-
-namespace ChatProject.Dto
+﻿namespace EntityFramework.Entities
 {
-    public class UserDto
+    public class User : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

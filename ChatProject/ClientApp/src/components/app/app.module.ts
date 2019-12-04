@@ -1,3 +1,4 @@
+import { ChatListComponent } from './../pages/ChatList/ChatList.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -9,13 +10,23 @@ import { NavMenuComponent } from '../pages/nav-menu/nav-menu.component';
 import { UserComponent } from '../pages/user/user.component';
 import { CookieService } from 'ngx-cookie-service';
 import { FriendsComponent } from '../pages/friends/friends.component';
+import { FriendComponent } from '../pages/friend/friend.component';
+import { HttpService } from '../../HttpServices/HttpService';
+import { LoginComponent } from '../pages/login/login.component';
+import { RegistrationComponent } from '../pages/registration/registration.component';
+import { ChatPageComponent } from '../pages/ChatPage/ChatPage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     UserComponent,
-    FriendsComponent
+    LoginComponent,
+    RegistrationComponent,
+    FriendsComponent,
+    FriendComponent,
+    ChatListComponent,
+    ChatPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -23,10 +34,15 @@ import { FriendsComponent } from '../pages/friends/friends.component';
     FormsModule,
     RouterModule.forRoot([
       { path: 'user', component: UserComponent, pathMatch: 'full' },
-      { path: 'friends', component: FriendsComponent}
+      { path: 'login', component: LoginComponent },
+      { path: 'registration', component: RegistrationComponent },
+      { path: 'chat-list', component: ChatListComponent },
+      { path: 'chat-list/:id', component: ChatPageComponent },
+      { path: 'friends', component: FriendsComponent },
+      { path: 'friend/:login', component: FriendComponent }
     ])
   ],
-  providers: [CookieService],
+  providers: [CookieService, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

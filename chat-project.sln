@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatProject", "ChatProject\ChatProject.csproj", "{76F4164A-36D0-4BD0-89CF-307327242C9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework", "EntityFramework\EntityFramework.csproj", "{B253F424-69EA-4C85-837A-997BD8B68ABA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF", "EF\EF.csproj", "{25583F63-EFED-4774-9051-82347AD7547A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{76F4164A-36D0-4BD0-89CF-307327242C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76F4164A-36D0-4BD0-89CF-307327242C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76F4164A-36D0-4BD0-89CF-307327242C9C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B253F424-69EA-4C85-837A-997BD8B68ABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B253F424-69EA-4C85-837A-997BD8B68ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B253F424-69EA-4C85-837A-997BD8B68ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B253F424-69EA-4C85-837A-997BD8B68ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25583F63-EFED-4774-9051-82347AD7547A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25583F63-EFED-4774-9051-82347AD7547A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25583F63-EFED-4774-9051-82347AD7547A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25583F63-EFED-4774-9051-82347AD7547A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
