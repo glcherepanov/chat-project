@@ -2,7 +2,7 @@
 <hr>
 <div class="list-group">
     <ng-container *ngFor="let chat of chats" >
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+        <a routerLink="chat-list/{{chat.chatId}}" class="list-group-item list-group-item-action flex-column align-items-start active">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{chat.name}}</h5>
             </div>

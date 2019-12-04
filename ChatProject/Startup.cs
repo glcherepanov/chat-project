@@ -29,7 +29,10 @@ namespace chat_service
             services.AddDbContext<ChatProjectDBContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=ChatProject;Trusted_Connection=True;" ) );
             services.AddMvc();
 
-            services.AddScoped<IUserServices, UserService>();
+            //services
+            services
+                .AddScoped<IUserServices, UserService>()
+                .AddScoped<IChatService, ChatService>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles( configuration =>

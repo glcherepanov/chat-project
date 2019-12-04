@@ -13,13 +13,19 @@ export class ChatHttpService {
         this._httpService = httpService;
     }
 
-    public getChats(): Observable<ChatDto[]> {
-        return this._httpService.get<ChatDto[]>('api/ChatApi/');
+    public getChats( login: string ): Observable<ChatDto[]> {
+        const params: HttpParams = new HttpParams()
+            .set('login', login.toString());
+        return this._httpService.get<ChatDto[]>('api/chat', params);
     }
 
-    public getMessages(chatId: number): Observable<MessageDto> {
+    public getMessages(chatId: number): Observable<MessageDto[]> {
         const params: HttpParams = new HttpParams()
             .set('chatId', chatId.toString());
-        return this._httpService.get<MessageDto>('api/ChatApi/message', params);
+        return this._httpService.get<MessageDto[]>('api/chat/message');
+    }
+
+    public sendMessage(chatId: number, userSendId: number, message: MessageDto): void {
+
     }
 }
