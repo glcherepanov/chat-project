@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ChatDto } from './../../../dto/chat/ChatDto';
 import { ChatHttpService } from './../../../HttpServices/ChatHttpService';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-chat-list',
@@ -12,17 +13,14 @@ export class ChatListComponent {
     private readonly _chatHttpService: ChatHttpService;
     public chats: ChatDto[];
 
-    public constructor(chatsService: ChatHttpService) {
-        // this._chatHttpService = chatsService;
-        // this._chatHttpService.getChats().subscribe(values => {
-        //     this.chats = values;
-        // });
-        // this.reloadChats();
+    public constructor(chatsService: ChatHttpService, private cookie: CookieService) {
+        this._chatHttpService = chatsService;
+        this.reloadChats();
     }
 
-    // private reloadChats(): void {
-    //     this._chatHttpService.getChats().subscribe(values => {
-    //       this.chats = values;
-    //     });
-    // }
+    private reloadChats(): void {
+        this._chatHttpService.getChats( this.cookie.get('login') ).subscribe(values => {
+          this.chats = values;
+        });
+    }
 }

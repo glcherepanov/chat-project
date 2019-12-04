@@ -14,6 +14,7 @@ import { FriendComponent } from '../pages/friend/friend.component';
 import { HttpService } from '../../HttpServices/HttpService';
 import { LoginComponent } from '../pages/login/login.component';
 import { RegistrationComponent } from '../pages/registration/registration.component';
+import { ChatPageComponent } from '../pages/ChatPage/ChatPage.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RegistrationComponent } from '../pages/registration/registration.compon
     RegistrationComponent,
     FriendsComponent,
     FriendComponent,
-    ChatListComponent
+    ChatListComponent,
+    ChatPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,6 +37,7 @@ import { RegistrationComponent } from '../pages/registration/registration.compon
       { path: 'login', component: LoginComponent },
       { path: 'registration', component: RegistrationComponent },
       { path: 'chat-list', component: ChatListComponent },
+      { path: 'chat-list/:id', component: ChatPageComponent },
       { path: 'friends', component: FriendsComponent },
       { path: 'friend/:login', component: FriendComponent }
     ])
