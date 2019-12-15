@@ -38,6 +38,20 @@ export class UserHttpService {
         return this._httpService.post<UserDto, boolean>('api/user/add', user);
     }
 
+    public addFriend( userLogin: string, friendLogin: string ): Observable<boolean> {
+        const params: HttpParams = new HttpParams()
+            .set('userLogin', userLogin.toString())
+            .set('friendLogin', friendLogin.toString());
+        return this._httpService.post<HttpParams, boolean>('api/user/add-friend', params);
+    }
+
+    public removeFriend( userLogin: string, friendLogin: string ): Observable<boolean> {
+        const params: HttpParams = new HttpParams()
+            .set('userLogin', userLogin.toString())
+            .set('friendLogin', friendLogin.toString());
+        return this._httpService.post<HttpParams, boolean>('api/user/add-friend', params);
+    }
+
     public login(login: string, password: string): Observable<boolean> {
         const params: HttpParams = new HttpParams()
             .set('login', login.toString())

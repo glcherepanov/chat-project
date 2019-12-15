@@ -13,9 +13,14 @@
             <li *ngIf="friend.type == 1">Права: Админ</li>
           </ul>
           <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <button type="button" class="btn btn-primary">Написать сообщение</button>
-            <button type="button" class="btn btn-primary">Добавить в друзья</button>
-            <button type="button" class="btn btn-danger">Удалить из друзей</button>
+            <button type="button" class="btn btn-primary" (click)="write()">Написать сообщение</button>
+            <div *ngIf="logged; then isFriend else isNotFriend"></div>
+            <ng-template #isFriend>
+              <button type="button" class="btn btn-primary" (click)="add()">Добавить в друзья</button>
+            </ng-template>
+            <ng-template #isNotFriend>
+              <button type="button" class="btn btn-danger" (click)="remove()">Удалить из друзей</button>
+            </ng-template>
           </div>
       </div>
   </body>

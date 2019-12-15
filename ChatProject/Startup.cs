@@ -41,11 +41,6 @@ namespace chat_service
              } );
         }
 
-        private int IUserService()
-        {
-            throw new NotImplementedException();
-        }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure( IApplicationBuilder app, IHostingEnvironment env )
         {

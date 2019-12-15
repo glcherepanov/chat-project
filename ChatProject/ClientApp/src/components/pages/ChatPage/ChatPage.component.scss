@@ -80,7 +80,7 @@
       text-overflow: ellipsis;
       
       &:not(:empty) ~ #input-box-placeholder { display: none; }
-      &:empty { caret-color: darken(main-color,15%); }
+    //   &:empty { caret-color: darken(main-color,15%); }
       
       user-select: text;
       -webkit-touch-callout: text;

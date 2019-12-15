@@ -2,7 +2,7 @@ import { MessageDto } from './../../../dto/message/MessageDto';
 import { Component } from '@angular/core';
 import { ChatHttpService } from './../../../HttpServices/ChatHttpService';
 import { ActivatedRoute } from '@angular/router';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-chat',
@@ -13,7 +13,16 @@ import { DatePipe } from '@angular/common'
 
 export class ChatPageComponent {
     private readonly _chatHttpService: ChatHttpService;
-    public messages: MessageDto[];
+    public message: MessageDto = {
+        messageId: 3,
+        dateSend: new Date(),
+        textMessage: 'message3'
+    };
+    public messages: MessageDto[] = [
+        this.message, this.message
+    ] ;
+
+
     public currChatId: number;
 
     public constructor(chatHttpService: ChatHttpService, route: ActivatedRoute) {
@@ -24,7 +33,7 @@ export class ChatPageComponent {
             ? Number(params['id'])
             : 0;
             this.currChatId = _currChatId;
-            this.reloadMessages();
+            // this.reloadMessages();
         });
     }
 
