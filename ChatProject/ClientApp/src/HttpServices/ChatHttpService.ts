@@ -1,4 +1,5 @@
 import { MessageDto } from './../dto/message/MessageDto';
+import { SendMessageDto } from './../dto/message/SendMessageDto';
 import { ChatDto } from './../dto/chat/ChatDto';
 import { HttpService } from './HttpService';
 import { Injectable } from '@angular/core';
@@ -22,10 +23,20 @@ export class ChatHttpService {
     public getMessages(chatId: number): Observable<MessageDto[]> {
         const params: HttpParams = new HttpParams()
             .set('chatId', chatId.toString());
-        return this._httpService.get<MessageDto[]>('api/chat/message');
+        return this._httpService.get<MessageDto[]>('api/chat/message', params);
+  }
+
+    protected makeSendMessage(): void {
+      const sendMessage: SendMessageDto = new SendMessageDto;
+      sendMessage.sendChatId = ;
+      sendMessage.sendUserId = ;
+      sendMessage.message = ;
+      this._httpService.makeMessage(sendMessage).subscribe(value => {
+        alert('Сообщение отправлено');
+      });
     }
 
-    public sendMessage(chatId: number, userSendId: number, message: MessageDto): void {
-
-    }
+  public sendMessage(sendMessage: SendMessageDto): Observable<SendMessageDto> {
+    return this._httpService.post<SendMessageDto, SendMessageDto>('');
+  }
 }

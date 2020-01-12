@@ -33,7 +33,7 @@ export class ChatPageComponent {
         ? Number(params['id'])
         : 0;
       this.currChatId = _currChatId;
-      // this.reloadMessages();
+      //this.reloadMessages();
     });
   }
 

@@ -25,6 +25,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\src\dto\message\SendMessage.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\dto\message\SendMessage.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EF\EF.csproj" />
   </ItemGroup>
 
