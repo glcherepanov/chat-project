@@ -28,7 +28,7 @@ export class ChatHttpService {
     return this._httpService.get<MessageDto[]>('api/chat/message', params);
   }
 
-  public sendMessage(sendMessage: SendMessageDto): Observable<SendMessageDto> {
+  public sendMessage(message: SendMessageDto): Observable<SendMessageDto> {
     return this._httpService.post<SendMessageDto>('');
   }
 }

@@ -15,13 +15,15 @@ import { CookieService } from 'ngx-cookie-service';
 
 export class ChatPageComponent {
   private readonly _chatHttpService: ChatHttpService;
-  public message: MessageDto = {
+  public message: string;
+  public dateSendMessage: Date = new Date();
+  public messageGet: MessageDto = {
     messageId: 3,
     dateSend: new Date(),
     textMessage: 'message3'
   };
   public messages: MessageDto[] = [
-    this.message, this.message
+    this.messageGet, this.messageGet
   ];
 
   public userLogin: string;
@@ -46,17 +48,15 @@ export class ChatPageComponent {
     });
   }
 
-  public makeSendMessage(): SendMessageDto {
-    const sendMessage: SendMessageDto = new SendMessageDto;
-    sendMessage.sendChatId = ;
-    sendMessage.sendUserLogin = this.userLogin;
-    sendMessage.message = ;
+  public send(): void {
+    const messageForSend: SendMessageDto = new SendMessageDto;
+    messageForSend.sendChatId = this.currChatId;
+    messageForSend.sendUserLogin = this.userLogin;
+    messageForSend.message.textMessage = this.message;
+    messageForSend.message.dateSend = this.dateSendMessage;
 
-    return sendMessage;
-  }
-
-  public sendMessage(): void {
     console.log("Send message complete");
+    this._chatHttpService.sendMessage(messageForSend);
   }
 
   public dateToString(date: Date): string {
