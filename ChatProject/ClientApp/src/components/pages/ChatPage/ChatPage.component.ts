@@ -1,8 +1,10 @@
 import { MessageDto } from './../../../dto/message/MessageDto';
+import { SendMessageDto } from './../../../dto/message/SendMessageDto';
 import { Component } from '@angular/core';
 import { ChatHttpService } from './../../../HttpServices/ChatHttpService';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-chat',
@@ -22,11 +24,12 @@ export class ChatPageComponent {
     this.message, this.message
   ];
 
-
+  public userLogin: string;
   public currChatId: number;
 
-  public constructor(chatHttpService: ChatHttpService, route: ActivatedRoute) {
+  public constructor(chatHttpService: ChatHttpService, private _cookie: CookieService, route: ActivatedRoute) {
     this._chatHttpService = chatHttpService;
+    this.userLogin = this._cookie.get('login');
 
     route.params.subscribe(params => {
       const _currChatId: number | undefined = params['id'] !== undefined
@@ -41,6 +44,15 @@ export class ChatPageComponent {
     this._chatHttpService.getMessages(this.currChatId).subscribe(values => {
       this.messages = values;
     });
+  }
+
+  public makeSendMessage(): SendMessageDto {
+    const sendMessage: SendMessageDto = new SendMessageDto;
+    sendMessage.sendChatId = ;
+    sendMessage.sendUserLogin = this.userLogin;
+    sendMessage.message = ;
+
+    return sendMessage;
   }
 
   public sendMessage(): void {
