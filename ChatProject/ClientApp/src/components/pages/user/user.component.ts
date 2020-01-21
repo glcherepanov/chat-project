@@ -3,6 +3,7 @@ import { UserDto } from '../../../dto/user/UserDto';
 import { UserType } from '../../../dto/user/UserType';
 import { UserHttpService } from '../../../HttpServices/UserHttpService';
 import { CookieService } from 'ngx-cookie-service';
+import { Md5 } from 'md5-typescript';
 
 @Component({
   selector: 'app-user',
@@ -13,7 +14,9 @@ import { CookieService } from 'ngx-cookie-service';
 export class UserComponent {
   private readonly _userHttpService: UserHttpService;
   public users: UserDto[];
-  public mainUser: UserDto = new UserDto ();
+  public mainUser: UserDto = new UserDto();
+  public oldpass: string;
+  public newpass: string;
 
   public constructor(userHttpService: UserHttpService, private _cookie: CookieService) {
     this._userHttpService = userHttpService;
@@ -39,8 +42,27 @@ export class UserComponent {
     });
   }
 
-  public getUserType( type: UserType ): string {
-    switch ( type ) {
+  public openChangePasswordBlock(blockId: string): void {
+    if (document.getElementById(blockId).style.display == 'none') {
+      document.getElementById(blockId).style.display = 'block';
+    }
+  }
+
+  public changePassword(blockId: string): void {
+    if (this._userHttpService.login(this.mainUser.login, Md5.init(this.oldpass)) && !(this.oldpass === this.newpass)) {
+      console.log('Old password done!');
+      this.mainUser.password = Md5.init(this.newpass);
+      console.log(this.mainUser.password);
+      //написать в userHttpService функцию для changePassword
+    } else {
+      if (document.getElementById(blockId).style.display == 'none') {
+        document.getElementById(blockId).style.display = 'block';
+      }
+    }
+  }
+
+  public getUserType(type: UserType): string {
+    switch (type) {
       case UserType.Admin:
         return 'Админ';
       case UserType.User:
