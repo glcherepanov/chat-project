@@ -1,14 +1,14 @@
 <h1>Тут будет chat.name</h1>
 <div class="chat">
   <div *ngFor="let message of messages" class="container">
-    <img src="" alt="Avatar">
-    <p>{{message.textMessage}}</p>
-    <span class="time-right">{{dateToString(message.dateSend)}}</span>
+    <p style="float: left;">{{message.userLogin}}<p>
+    <p style="float: left;">{{message.text}}</p>
+    <span class="time-right">{{dateToString(message.date)}}</span>
   </div>
 </div>
 <div class="form-message">
   <form action="#">
-    <input name="message" type="text" class="form-control" placeholder="Message..." required="" autofocus="">
-    <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="sendMessage()">Отправить</button>
+    <input [(ngModel)]="message.text" name="message" type="text" class="form-control" placeholder="Message..." required="" autofocus="">
+    <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="send()">Отправить</button>
   </form>
 </div>

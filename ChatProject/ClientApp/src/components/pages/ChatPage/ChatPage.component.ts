@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ChatHttpService } from './../../../HttpServices/ChatHttpService';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-chat',
@@ -13,38 +14,30 @@ import { DatePipe } from '@angular/common';
 
 export class ChatPageComponent {
   private readonly _chatHttpService: ChatHttpService;
-  public message: MessageDto = {
-    messageId: 3,
-    dateSend: new Date(),
-    textMessage: 'message3'
-  };
-  public messages: MessageDto[] = [
-    this.message, this.message
-  ];
+  public message: MessageDto = new MessageDto;
+  public messages: MessageDto[];
 
-
-  public currChatId: number;
-
-  public constructor(chatHttpService: ChatHttpService, route: ActivatedRoute) {
+  public constructor(chatHttpService: ChatHttpService, private _cookie: CookieService, route: ActivatedRoute) {
     this._chatHttpService = chatHttpService;
+    this.message.userLogin = this._cookie.get('login');
 
     route.params.subscribe(params => {
-      const _currChatId: number | undefined = params['id'] !== undefined
+      this.message.chatId = params['id'] !== undefined
         ? Number(params['id'])
         : 0;
-      this.currChatId = _currChatId;
-      // this.reloadMessages();
+      this.reloadMessages();
     });
   }
 
   private reloadMessages(): void {
-    this._chatHttpService.getMessages(this.currChatId).subscribe(values => {
+    this._chatHttpService.getMessages( this.message.chatId ).subscribe(values => {
       this.messages = values;
     });
   }
 
-  public sendMessage(): void {
-    console.log("Send message complete");
+  public send(): void {
+    this.message.date = new Date();
+    this._chatHttpService.sendMessage( this.message ).subscribe();
   }
 
   public dateToString(date: Date): string {

@@ -17,9 +17,21 @@ namespace ChatProject.Controllers
         }
 
         [HttpGet()]
-        public List<ChatDto> GetUser( string login )
+        public List<ChatDto> GetChat( string login )
         {
             return _service.GetChatsByLogin( login );
+        }
+
+        [HttpGet( "messages" )]
+        public List<MessageDto> GetMessages( int id )
+        {
+            return _service.GetChatMessages( id );
+        }
+
+        [HttpPost( "send" )]
+        public bool SendMessage( [FromBody] MessageDto message )
+        {
+            return _service.SaveMessage( message );
         }
 
         //[HttpPost( "add" )]
