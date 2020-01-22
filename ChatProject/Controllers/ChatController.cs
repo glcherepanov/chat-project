@@ -17,7 +17,13 @@ namespace ChatProject.Controllers
         }
 
         [HttpGet()]
-        public List<ChatDto> GetChat( string login )
+        public ChatDto GetChat( int id )
+        {
+            return _service.GetChatById( id );
+        }
+
+        [HttpGet( "chats" )]
+        public List<ChatDto> GetChats( string login )
         {
             return _service.GetChatsByLogin( login );
         }
@@ -40,10 +46,22 @@ namespace ChatProject.Controllers
             return _service.ChangeChatImage( id, path );
         }
 
-        //[HttpPost( "add" )]
-        //public bool AddUser( [FromBody] UserDto user )
-        //{
-        //   return _service.AddUser( user );
-        //}
+        [HttpPost( "add" )]
+        public bool AddChat( [FromBody] ChatDto chat )
+        {
+            return _service.AddChat( chat );
+        }
+
+        [HttpPost( "add-user" )]
+        public bool AddUser( int id, string login )
+        {
+            return _service.AddUserToChat( id, login );
+        }
+
+        [HttpPost( "remove" )]
+        public bool RemoveChat( int id )
+        {
+            return _service.RemoveChat( id );
+        }
     }
 }
