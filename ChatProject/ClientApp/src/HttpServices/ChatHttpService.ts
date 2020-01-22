@@ -5,8 +5,6 @@ import { HttpService } from './HttpService';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class ChatHttpService {
@@ -22,13 +20,14 @@ export class ChatHttpService {
     return this._httpService.get<ChatDto[]>('api/chat', params);
   }
 
-  public getMessages(chatId: number): Observable<MessageDto[]> {
+  public getMessages( chatId: number ): Observable<MessageDto[]> {
     const params: HttpParams = new HttpParams()
-      .set('chatId', chatId.toString());
-    return this._httpService.get<MessageDto[]>('api/chat/message', params);
+      .set('id', chatId.toString());
+    return this._httpService.get<MessageDto[]>('api/chat/messages', params);
   }
 
-  public sendMessage(message: SendMessageDto): Observable<SendMessageDto> {
-    return this._httpService.post<SendMessageDto>('');
+  public sendMessage(message: SendMessageDto): Observable<boolean> {
+    console.log( message );
+    return this._httpService.post<SendMessageDto, boolean>('api/chat/send', message);
   }
 }

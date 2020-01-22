@@ -28,6 +28,7 @@ export class HttpService {
     public get<T>(url: string, params?: HttpParams): Observable<T> {
         this.addDiv(this.preloaderElement, 'preloader');
         const httpHeaders = new HttpHeaders().set('Accept', 'application/json');
+        console.log( this._baseUrl );
         return this._httpClient.get<T>(this._baseUrl + url, {headers: httpHeaders, params: params}).pipe(
             // tap(_ => {
             //     this.removeDiv(this.preloaderElement);

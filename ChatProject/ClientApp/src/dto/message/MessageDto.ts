@@ -1,5 +1,6 @@
 export class MessageDto {
-    messageId: number;
-    dateSend: Date;
-    textMessage: string;
+    userLogin: string;
+    chatId: number;
+    date: Date;
+    text: string;
 }

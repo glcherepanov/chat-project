@@ -10,5 +10,7 @@ namespace ChatProject.Service
     public interface IChatService
     {
         List<ChatDto> GetChatsByLogin( string login );
+        List<MessageDto> GetChatMessages( int id );
+        bool SaveMessage( MessageDto message );
     }
 }

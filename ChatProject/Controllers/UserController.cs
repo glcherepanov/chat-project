@@ -23,7 +23,7 @@ namespace ChatProject.Controllers
         }
 
         [HttpGet( "users" )]
-        public List<UserDto> GetUser( int id )
+        public List<UserDto> GetUser()
         {
             return _service.GetUsers();
         }
