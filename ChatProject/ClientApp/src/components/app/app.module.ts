@@ -39,10 +39,10 @@ import { ChatCreateComponent } from '../pages/chat-create/chat-create.component'
       { path: 'login', component: LoginComponent },
       { path: 'registration', component: RegistrationComponent },
       { path: 'chat-list', component: ChatListComponent },
+      { path: 'chat-list/create', component: ChatCreateComponent },
       { path: 'chat-list/:id', component: ChatPageComponent },
       { path: 'friends', component: FriendsComponent },
-      { path: 'friend/:login', component: FriendComponent },
-      { path: 'chat-create', component: ChatCreateComponent }
+      { path: 'friend/:login', component: FriendComponent }
     ])
   ],
   providers: [CookieService, HttpService],
