@@ -1,2 +1,17 @@
 <h1>Создание беседы</h1>
 <hr>
+<div>
+  <input type="text" [(ngModel)]="nameConversation" class="form-control" placeholder="Название..." style="width: 400px; margin-top: 10px;" />
+  <br>
+  <div class="form-group">
+    <label for="contactMethod">Добавьте участников</label>
+    <select multiple name="chatcreatecomponent" [(ngModel)]="selectUsers" style="width: 200px;">
+      <option style="width: 100%;" *ngFor="let friend of friends" [ngValue]="friend">{{friend.name}}</option>
+    </select>
+    <br>
+  </div>
+</div>
+<div>
+  <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="createChatData('warning-create')">Создать</button>
+  <p id="warning-create" style="display: none;"><b>Не удается создать беседу!</b></p>
+</div>
