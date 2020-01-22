@@ -1,8 +1,17 @@
-<h1>Тут будет chat.name</h1>
+<div *ngIf="isChangeImage">
+  <h5>Введите новый путь к изображению</h5>
+  <form action="#">
+    <input [(ngModel)]="newPath" name="path" type="text" class="form-control" placeholder="path to image..." required="" autofocus="">
+    <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="changeImage()">Отправить</button>
+  </form>
+</div>
+<div class="chat-container">
+  <img style="height: 50px; width: 50px;" src="{{chat?.image}}" (click)="change()"/>
+  <h1>{{chat?.name}}</h1>
+</div>
 <div class="chat">
-  <div *ngFor="let message of messages" class="container">
-    <p style="float: left;">{{message.userLogin}}<p>
-    <p style="float: left;">{{message.text}}</p>
+  <div *ngFor="let message of messages" class="chat-container">
+    <p>{{message.userLogin}} : {{message.text}}</p>
     <span class="time-right">{{dateToString(message.date)}}</span>
   </div>
 </div>

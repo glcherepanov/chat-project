@@ -1,5 +1,5 @@
 /* Chat containers */
-.container {
+.chat-container {
   border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 5px;
@@ -18,14 +18,15 @@
 }
 
 /* Clear floats */
-.container::after {
+.chat-container::after {
   content: "";
   clear: both;
   display: table;
 }
 
 /* Style images */
-.container img {
+.chat-container img {
+  cursor: pointer;
   float: left;
   max-width: 60px;
   width: 100%;
@@ -34,7 +35,7 @@
 }
 
 /* Style the right image */
-.container img.right {
+.chat-container img.right {
   float: right;
   margin-left: 20px;
   margin-right: 0;

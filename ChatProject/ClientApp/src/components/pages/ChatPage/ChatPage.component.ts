@@ -4,6 +4,7 @@ import { ChatHttpService } from './../../../HttpServices/ChatHttpService';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { ChatDto } from '../../../dto/chat/ChatDto';
 
 @Component({
   selector: 'app-chat',
@@ -16,6 +17,9 @@ export class ChatPageComponent {
   private readonly _chatHttpService: ChatHttpService;
   public message: MessageDto = new MessageDto;
   public messages: MessageDto[];
+  public chat: ChatDto;
+  public newPath: string;
+  public isChangeImage: boolean = false;
 
   public constructor(chatHttpService: ChatHttpService, private _cookie: CookieService, route: ActivatedRoute) {
     this._chatHttpService = chatHttpService;
@@ -26,6 +30,7 @@ export class ChatPageComponent {
         ? Number(params['id'])
         : 0;
       this.reloadMessages();
+      this.reloadChat();
     });
   }
 
@@ -33,6 +38,23 @@ export class ChatPageComponent {
     this._chatHttpService.getMessages( this.message.chatId ).subscribe(values => {
       this.messages = values;
     });
+  }
+
+  private reloadChat(): void {
+    this._chatHttpService.getChat( this.message.chatId ).subscribe(values => {
+      this.chat = values;
+    });
+  }
+
+  public changeImage(): void {
+    console.log(this.chat);
+    this._chatHttpService.changeChatImage( this.chat.id, this.newPath ).subscribe();
+    this.reloadChat();
+    this.isChangeImage = false;
+  }
+
+  public change(): void {
+    this.isChangeImage = this.isChangeImage === false ? true : false;
   }
 
   public send(): void {

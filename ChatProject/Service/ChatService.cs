@@ -18,13 +18,101 @@ namespace ChatProject.Service
 
         }
 
+        public bool RemoveChat( int id )
+        {
+            try
+            {
+                var users = _context.ChatUsers.Where( c => c.ChatId == id ).ToList();
+                _context.ChatUsers.RemoveRange( users );
+
+                var chat = _context.Chats.FirstOrDefault( c => c.Id == id );
+                var image = _context.Images.FirstOrDefault( i => i.Id == chat.ImageId );
+                _context.Chats.Remove( chat );
+                _context.Images.Remove( image );
+
+                return true;
+            }
+            catch ( Exception )
+            {
+                return false;
+            }
+        }
+
+        public bool AddChat( ChatDto chat )
+        {
+            try
+            {
+                _context.Chats.Add( new Chat
+                {
+                    Type = chat.Type,
+                    Name = chat.Name,
+                } );
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch ( Exception )
+            {
+                return false;
+            }
+        }
+
+        public bool AddUserToChat( int id, string login )
+        {
+            try
+            {
+                var userId = GetUserIdByLogin( login );
+
+                _context.ChatUsers.Add( new ChatUser
+                {
+                    ChatId = id,
+                    UserId = userId
+                } );
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch ( Exception )
+            {
+                return false;
+            }
+        }
+
+        public ChatDto GetChatById( int id )
+        {
+            var chatQry =
+                from chat in _context.Chats
+                join image in _context.Images on chat.ImageId equals image.Id
+                where chat.Id == id
+                select new ChatDto
+                {
+                    Id = chat.Id,
+                    Type = chat.Type,
+                    Image = image.Path,
+                    Name = chat.Name
+                };
+
+            return chatQry.FirstOrDefault();
+        }
+
         public List<ChatDto> GetChatsByLogin( string login )
         {
-            User user = _context.Users.Where( item => item.Login == login ).FirstOrDefault();
-            List<int> userChats = _context.ChatUsers.Where( chatUser => chatUser.UserId == user.Id ).Select( chatUser => chatUser.ChatId ).ToList();
-            List<Chat> chats = _context.Chats.Where( chat => userChats.Contains( chat.Id ) ).ToList();
+            var chats =
+                from user in _context.Users
+                join userChat in _context.ChatUsers on user.Id equals userChat.UserId
+                join chat in _context.Chats on userChat.ChatId equals chat.Id
+                join image in _context.Images on chat.ImageId equals image.Id
+                where user.Login == login
+                select new ChatDto
+                {
+                    Id = chat.Id,
+                    Type = chat.Type,
+                    Image = image.Path,
+                    Name = chat.Name
+                };
 
-            return chats.ConvertAll( Convert );
+
+            return chats.ToList();
         }
 
         public List<MessageDto> GetChatMessages( int id )
@@ -84,15 +172,28 @@ namespace ChatProject.Service
             return true;
         }
 
-        private ChatDto Convert( Chat chat )
+        public bool ChangeChatImage( int id, string path )
         {
-            return new ChatDto
+            try
             {
-                Id = chat.Id,
-                Type = chat.Type,
-                Image = chat.ImageId.ToString(),
-                Name = chat.Name
-            };
+                var imageQry =
+                    from chat in _context.Chats
+                    join image in _context.Images on chat.ImageId equals image.Id
+                    where chat.Id == id
+                    select image;
+
+                var imageData = imageQry.FirstOrDefault();
+                imageData.Path = path;
+
+                _context.Images.Update( imageData );
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch ( Exception )
+            {
+                return false;
+            }
         }
 
         private int GetUserIdByLogin( string login )
