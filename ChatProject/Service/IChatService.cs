@@ -12,5 +12,6 @@ namespace ChatProject.Service
         List<ChatDto> GetChatsByLogin( string login );
         List<MessageDto> GetChatMessages( int id );
         bool SaveMessage( MessageDto message );
+        bool ChangeChatImage( int id, string path );
     }
 }

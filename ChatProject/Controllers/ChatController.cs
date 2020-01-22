@@ -34,6 +34,12 @@ namespace ChatProject.Controllers
             return _service.SaveMessage( message );
         }
 
+        [HttpPost( "change-image" )]
+        public bool ChangeImage( int id, string path )
+        {
+            return _service.ChangeChatImage( id, path );
+        }
+
         //[HttpPost( "add" )]
         //public bool AddUser( [FromBody] UserDto user )
         //{

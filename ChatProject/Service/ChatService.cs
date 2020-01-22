@@ -20,11 +20,22 @@ namespace ChatProject.Service
 
         public List<ChatDto> GetChatsByLogin( string login )
         {
-            User user = _context.Users.Where( item => item.Login == login ).FirstOrDefault();
-            List<int> userChats = _context.ChatUsers.Where( chatUser => chatUser.UserId == user.Id ).Select( chatUser => chatUser.ChatId ).ToList();
-            List<Chat> chats = _context.Chats.Where( chat => userChats.Contains( chat.Id ) ).ToList();
+            var chats =
+                from user in _context.Users
+                join userChat in _context.ChatUsers on user.Id equals userChat.UserId
+                join chat in _context.Chats on userChat.ChatId equals chat.Id
+                join image in _context.Images on chat.ImageId equals image.Id
+                where user.Login == login
+                select new ChatDto
+                {
+                    Id = chat.Id,
+                    Type = chat.Type,
+                    Image = image.Path,
+                    Name = chat.Name
+                };
 
-            return chats.ConvertAll( Convert );
+
+            return chats.ToList();
         }
 
         public List<MessageDto> GetChatMessages( int id )
@@ -85,14 +96,28 @@ namespace ChatProject.Service
         }
 
         private ChatDto Convert( Chat chat )
+        public bool ChangeChatImage( int id, string path )
         {
-            return new ChatDto
+            try
             {
-                Id = chat.Id,
-                Type = chat.Type,
-                Image = chat.ImageId.ToString(),
-                Name = chat.Name
-            };
+                var imageQry =
+                    from chat in _context.Chats
+                    join image in _context.Images on chat.ImageId equals image.Id
+                    where chat.Id == id
+                    select image;
+
+                var imageData = imageQry.FirstOrDefault();
+                imageData.Path = path;
+
+                _context.Images.Update( imageData );
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch ( Exception )
+            {
+                return false;
+            }
         }
 
         private int GetUserIdByLogin( string login )
