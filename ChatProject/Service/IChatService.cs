@@ -16,6 +16,6 @@ namespace ChatProject.Service
         bool ChangeChatImage( int id, string path );
         bool AddUserToChat( int id, string login );
         bool AddChat( ChatDto chat );
-        bool RemoveChat( int id )
+        bool RemoveChat( int id );
     }
 }

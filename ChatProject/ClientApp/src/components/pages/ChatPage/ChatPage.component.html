@@ -18,6 +18,6 @@
 <div class="form-message">
   <form action="#">
     <input [(ngModel)]="message.text" name="message" type="text" class="form-control" placeholder="Message..." required="" autofocus="">
-    <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="send()">Отправить</button>
+    <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="send()" (keyup.enter)="send()">Отправить</button>
   </form>
 </div>
