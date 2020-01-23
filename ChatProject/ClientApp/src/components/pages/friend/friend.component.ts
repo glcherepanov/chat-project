@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserDto } from '../../../dto/user/UserDto';
 import { UserHttpService } from '../../../HttpServices/UserHttpService';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -16,7 +16,7 @@ export class FriendComponent {
   public friend: UserDto = new UserDto();
   public friendLogin: string;
 
-  public constructor(userHttpService: UserHttpService, route: ActivatedRoute, private _cookie: CookieService) {
+  public constructor(userHttpService: UserHttpService, route: ActivatedRoute, private _cookie: CookieService, private router: Router ) {
     this._userHttpService = userHttpService;
     route.params.subscribe(params => {
       this.friendLogin = params['login'];
@@ -42,5 +42,7 @@ export class FriendComponent {
     });
   }
 
-  // public write(  )
+  public write(): void {
+    this.router.navigateByUrl( '/chat-list/create/' + this.friendLogin );
+  }
 }
