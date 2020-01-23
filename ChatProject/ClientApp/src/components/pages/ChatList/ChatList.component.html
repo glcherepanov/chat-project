@@ -1,5 +1,9 @@
 <h1>Ваши чаты:</h1>
 <hr>
+<div style="margin: 20px 0">
+  <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" routerLink="./create">Создать беседу</button>
+</div>
+<hr>
 <div class="list-group">
     <ng-container *ngFor="let chat of chats" >
         <a routerLink="./{{chat.id}}" class="list-group-item list-group-item-action flex-column align-items-start active">
