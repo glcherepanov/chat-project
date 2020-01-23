@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { UserDto } from '../../../dto/user/UserDto';
 import { UserHttpService } from '../../../HttpServices/UserHttpService';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ChatHttpService } from '../../../HttpServices/ChatHttpService';
+import { ChatDto } from '../../../dto/chat/ChatDto';
+import { ChatType } from '../../../dto/chat/ChatType';
 
 @Component({
     selector: 'app-friend',
     templateUrl: './friend.component.html',
-    providers: [UserHttpService]
+    providers: [UserHttpService, ChatHttpService]
 })
 
 export class FriendComponent {
@@ -16,7 +19,7 @@ export class FriendComponent {
   public friend: UserDto = new UserDto();
   public friendLogin: string;
 
-  public constructor(userHttpService: UserHttpService, route: ActivatedRoute, private _cookie: CookieService) {
+  public constructor(userHttpService: UserHttpService, route: ActivatedRoute, private _cookie: CookieService, private _chatHttpService: ChatHttpService, private _router: Router ) {
     this._userHttpService = userHttpService;
     route.params.subscribe(params => {
       this.friendLogin = params['login'];
@@ -42,5 +45,22 @@ export class FriendComponent {
     });
   }
 
-  // public write(  )
+  public write(): void {
+    const chat: ChatDto = new ChatDto;
+    chat.name = this._cookie.get( 'login' ) + '_' + this.friendLogin;
+    chat.type = ChatType.Group;
+
+    let chatId: number;
+    const _this = this;
+
+    this._chatHttpService.addChat( chat ).subscribe({
+      next(response: number) { chatId = response; },
+      complete() {
+        _this._chatHttpService.AddUserToChat( chatId, _this._cookie.get( 'login' ) ).subscribe();
+        _this._chatHttpService.AddUserToChat( chatId, _this.friendLogin ).subscribe();
+        _this._router.navigateByUrl('/chat-list/' + chatId );
+       }
+    });
+
+  }
 }

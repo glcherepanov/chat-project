@@ -3,6 +3,7 @@ import { Injectable, Inject } from '@angular/core';
 import { UserDto } from '../dto/user/UserDto';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { MessageDto } from '../dto/message/MessageDto';
 
 @Injectable()
 export class UserHttpService {
@@ -57,5 +58,13 @@ export class UserHttpService {
             .set('login', login.toString())
             .set('password', password.toString());
         return this._httpService.get<boolean>('api/user/login', params);
+    }
+
+    public messages( login: string, start: Date, end: Date ): Observable<MessageDto[]> {
+        const params: HttpParams = new HttpParams()
+            .set('login', login )
+            .set('start', start.toString())
+            .set('end', end.toString());
+        return this._httpService.get<MessageDto[]>('api/user/messages', params);
     }
 }

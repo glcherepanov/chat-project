@@ -47,7 +47,7 @@ namespace ChatProject.Controllers
         }
 
         [HttpPost( "add" )]
-        public bool AddChat( [FromBody] ChatDto chat )
+        public int AddChat( [FromBody] ChatDto chat )
         {
             return _service.AddChat( chat );
         }

@@ -4,6 +4,8 @@ import { ChatHttpService } from './../../../HttpServices/ChatHttpService';
 import { UserHttpService } from '../../../HttpServices/UserHttpService';
 import { CookieService } from 'ngx-cookie-service';
 import { UserDto } from '../../../dto/user/UserDto';
+import { ChatType } from '../../../dto/chat/ChatType';
+import { subscribeOn } from 'rxjs/operator/subscribeOn';
 
 @Component({
   selector: 'app-chat-create',
@@ -32,11 +34,27 @@ export class ChatCreateComponent {
 
   public createChatData(idBlock: string): void {
     if ((undefined === this.nameConversation) || (this.selectUsers.length < 2)) {
-      document.getElementById(idBlock).style.display = "block";
+      document.getElementById(idBlock).style.display = 'block';
     } else {
       console.log(this.nameConversation);
       console.log(this.selectUsers);
+      this.add();
     }
+  }
 
+  public add(): void {
+    const chat: ChatDto = new ChatDto;
+    chat.name = this.nameConversation;
+    chat.type = ChatType.Group;
+    const _this = this;
+    this._chatHttpService.addChat( chat ).subscribe({
+      next(id: number) { chat.id = id; },
+      complete() {
+        _this._chatHttpService.AddUserToChat( chat.id, _this.cookie.get( 'login' ) ).subscribe();
+        for ( const user of _this.selectUsers ) {
+          _this._chatHttpService.AddUserToChat( chat.id, user.login ).subscribe();
+        }
+     }
+    });
   }
 }

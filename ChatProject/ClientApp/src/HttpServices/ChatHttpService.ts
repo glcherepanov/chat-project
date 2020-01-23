@@ -42,4 +42,15 @@ export class ChatHttpService {
       .set('path', path);
     return this._httpService.post<HttpParams, boolean>('api/chat/change-image', params);
   }
+
+  public addChat( chat: ChatDto ): Observable<number> {
+    return this._httpService.post<ChatDto, number>('api/chat/add', chat);
+  }
+
+  public AddUserToChat( id: number, login: string ): Observable<boolean> {
+    const params: HttpParams = new HttpParams()
+      .set('id', id.toString())
+      .set('login', login);
+    return this._httpService.post<HttpParams, boolean>('api/chat/add-user', params);
+  }
 }
