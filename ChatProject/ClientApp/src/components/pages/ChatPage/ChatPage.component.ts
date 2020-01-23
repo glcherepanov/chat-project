@@ -59,7 +59,19 @@ export class ChatPageComponent {
 
   public send(): void {
     this.message.date = new Date();
-    this._chatHttpService.sendMessage( this.message ).subscribe();
+    const _this = this;
+    let send: boolean;
+    this._chatHttpService.sendMessage( this.message ).subscribe({
+      next(response: boolean) { send = response; },
+      complete() {
+        if ( send ) {
+          _this.reloadMessages();
+          _this.message.text = '';
+        } else {
+          console.log( 'Error send message' );
+        }
+       }
+     });
   }
 
   public dateToString(date: Date): string {

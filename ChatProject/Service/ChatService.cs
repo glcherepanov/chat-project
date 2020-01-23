@@ -150,7 +150,9 @@ namespace ChatProject.Service
                     Date = DateTime.Now,
                     Text = message.Text
                 });
-                var newMessage = _context.Messages.LastOrDefault(); 
+                _context.SaveChanges();
+
+                var newMessage = _context.Messages.LastOrDefault();
                 _context.ChatMessages.Add( new ChatMessage
                 {
                     MessageId = newMessage.Id,
