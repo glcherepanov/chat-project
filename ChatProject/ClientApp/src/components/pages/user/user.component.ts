@@ -22,7 +22,6 @@ export class UserComponent {
   }
 
   private reloadUserData(): void {
-    console.log(this._cookie.get( 'login' ));
     this._userHttpService.getUser( this._cookie.get( 'login' ) ).subscribe(value => {
       this.mainUser = value;
     });

@@ -33,7 +33,6 @@ export class ChatHttpService {
   }
 
   public sendMessage(message: SendMessageDto): Observable<boolean> {
-    console.log( message );
     return this._httpService.post<SendMessageDto, boolean>('api/chat/send', message);
   }
 

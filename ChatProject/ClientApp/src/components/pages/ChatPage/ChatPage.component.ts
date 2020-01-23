@@ -47,7 +47,6 @@ export class ChatPageComponent {
   }
 
   public changeImage(): void {
-    console.log(this.chat);
     this._chatHttpService.changeChatImage( this.chat.id, this.newPath ).subscribe();
     this.reloadChat();
     this.isChangeImage = false;
