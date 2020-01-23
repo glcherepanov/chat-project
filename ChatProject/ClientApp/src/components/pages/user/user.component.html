@@ -19,20 +19,23 @@
     </ul>
   </div>
   <hr>
-  <div *ngIf="mainUser.type != 2">
-    <button type="button" class="btn btn-outline-primary" (click)="openChangePasswordBlock('change-password')">Сменить пароль</button>
-    <div id="change-password" style="display: none;">
-      <br />
-      <p>Старый пароль: <input [(ngModel)]="oldpass" name="password" type="password" class="form-control" style="width: 300px;" placeholder="Password" required=""></p>
-      <p>Новый пароль: <input [(ngModel)]="newpass" name="password" type="password" class="form-control" style="width: 300px;" placeholder="Password" required=""></p>
-      <button type="button" class="btn btn-outline-primary" style="margin: 20px 0;" (click)="changePassword('warning-old-password')">Установить пароль</button>
-      <p id="warning-old-password" style="display: none;"><b>Старый пароль введен неправильно или старый и новый пароли совпадают!</b></p>
-    </div>
-  </div>
-  <hr>
+  <input [(ngModel)]="start" type="date"/>
+  <input [(ngModel)]="end" type="date"/>
   <div>
-    <button type="button" class="btn btn-outline-primary">Отобразить отправленные сообщения</button>
+    <button type="button" class="btn btn-outline-primary" (click)="messages()">Отобразить отправленные сообщения</button>
   </div>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Сообщения:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let message of userMessages">
+          <th>{{message.text}}</th>
+        </tr>
+      </tbody>
+    </table>
   <hr>
   <div *ngIf="mainUser.type == 1">
     <h3>Список всех пользователей</h3>

@@ -2,6 +2,7 @@
 using EF;
 using EntityFramework;
 using EntityFramework.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -63,6 +64,24 @@ namespace ChatProject.Service
             List<User> friends = _context.Users.Where( item => friendsId.Contains( item.Id ) ).ToList();
 
             return friends.ConvertAll( Convert );
+        }
+
+        public List<MessageDto> GetMessagesByDates( string login, DateTime start, DateTime end )
+        {
+            var userId = GetUserByLogin( login ).Id;
+
+            var messageQry =
+                from userMes in _context.UserMessages
+                join message in _context.Messages on userMes.MessageId equals message.Id
+                where message.Date >= start && message.Date <= end
+                select new MessageDto
+                {
+                    UserLogin = login,
+                    Text = message.Text,
+                    Date = message.Date
+                };
+
+            return messageQry.ToList();
         }
 
         private UserDto Convert( User user )

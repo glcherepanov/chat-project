@@ -2,6 +2,7 @@
 using ChatProject.Service;
 using EntityFramework.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace ChatProject.Controllers
@@ -46,6 +47,12 @@ namespace ChatProject.Controllers
             UserDto userIdBase = _service.GetUserByLogin( login );
 
             return password == userIdBase?.Password;
+        }
+
+        [HttpGet( "messages" )]
+        public List<MessageDto> GetMessages( string login, DateTime start, DateTime end )
+        {
+            return _service.GetMessagesByDates( login, start, end );
         }
     }
 }

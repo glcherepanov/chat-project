@@ -4,6 +4,7 @@ import { UserType } from '../../../dto/user/UserType';
 import { UserHttpService } from '../../../HttpServices/UserHttpService';
 import { CookieService } from 'ngx-cookie-service';
 import { Md5 } from 'md5-typescript';
+import { MessageDto } from '../../../dto/message/MessageDto';
 
 @Component({
   selector: 'app-user',
@@ -17,6 +18,9 @@ export class UserComponent {
   public mainUser: UserDto = new UserDto();
   public oldpass: string;
   public newpass: string;
+  public start: Date;
+  public end: Date;
+  public userMessages: MessageDto[] = [];
 
   public constructor(userHttpService: UserHttpService, private _cookie: CookieService) {
     this._userHttpService = userHttpService;
@@ -70,5 +74,11 @@ export class UserComponent {
       default:
         return 'бан';
     }
+  }
+
+  public messages(): void {
+    this._userHttpService.messages( this._cookie.get('login'), this.start, this.end ).subscribe(value => {
+      this.userMessages = value;
+    });
   }
 }

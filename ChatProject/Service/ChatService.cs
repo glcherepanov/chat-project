@@ -38,10 +38,15 @@ namespace ChatProject.Service
             }
         }
 
-        public bool AddChat( ChatDto chat )
+        public int AddChat( ChatDto chat )
         {
             try
             {
+                Chat oldChat = _context.Chats.FirstOrDefault( c => c.Name == chat.Name );
+                if ( oldChat != null )
+                {
+                    return oldChat.Id;
+                }
                 _context.Chats.Add( new Chat
                 {
                     Type = chat.Type,
@@ -49,11 +54,14 @@ namespace ChatProject.Service
                 } );
                 _context.SaveChanges();
 
-                return true;
+                int chatId = _context.Chats.LastOrDefault().Id;
+                ChangeChatImage( chatId, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpp-Iiom4henDj6g8u2WRT2Aaej-FVNYDnNV1mhlrxZGZsa2YOzQ&s" );
+
+                return chatId;
             }
             catch ( Exception )
             {
-                return false;
+                return 0;
             }
         }
 
@@ -185,9 +193,27 @@ namespace ChatProject.Service
                     select image;
 
                 var imageData = imageQry.FirstOrDefault();
-                imageData.Path = path;
+                if ( imageData != null )
+                {
+                    imageData.Path = path;
+                    _context.Images.Update( imageData );
+                }
+                else
+                {
+                    Image image = new Image
+                    {
+                        Path = path
+                    };
+                    _context.Add( image );
+                    _context.SaveChanges();
 
-                _context.Images.Update( imageData );
+                    image = _context.Images.LastOrDefault();
+                    var chat = _context.Chats.FirstOrDefault( c => c.Id == id );
+                    chat.ImageId = image.Id;
+
+                    _context.Chats.Update( chat );
+                }
+
                 _context.SaveChanges();
 
                 return true;

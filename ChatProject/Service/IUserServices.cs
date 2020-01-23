@@ -14,5 +14,6 @@ namespace ChatProject.Service
         UserDto GetUser( int id );
         UserDto GetUserByLogin( string login );
         List<UserDto> GetFriends( string login );
+        List<MessageDto> GetMessagesByDates( string login, DateTime start, DateTime end );
     }
 }

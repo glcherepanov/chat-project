@@ -40,8 +40,8 @@ import { ChatCreateComponent } from '../pages/chat-create/chat-create.component'
       { path: 'registration', component: RegistrationComponent },
       { path: 'chat-list', component: ChatListComponent },
       { path: 'chat-list/create', component: ChatCreateComponent },
+      { path: 'chat-list/create/:Login', component: ChatCreateComponent },
       { path: 'chat-list/:id', component: ChatPageComponent },
-      { path: 'chat-list/create/:Login', component: ChatPageComponent },
       { path: 'friends', component: FriendsComponent },
       { path: 'friend/:login', component: FriendComponent }
     ])
