@@ -9,6 +9,7 @@ namespace ChatProject.Service
 {
     public interface IChatService
     {
+        bool IsHavePermission( int id, string login );
         ChatDto GetChatById( int id );
         List<ChatDto> GetChatsByLogin( string login );
         List<MessageDto> GetChatMessages( int id );

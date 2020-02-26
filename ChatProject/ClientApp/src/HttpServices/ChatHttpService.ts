@@ -14,6 +14,13 @@ export class ChatHttpService {
     this._httpService = httpService;
   }
 
+  public havePermision(id: number, login: string): Observable<boolean> {
+    const params: HttpParams = new HttpParams()
+      .set('id', id.toString())
+      .set('login', login);
+    return this._httpService.get<boolean>('api/chat/permission', params);
+  }
+
   public getChats(login: string): Observable<ChatDto[]> {
     const params: HttpParams = new HttpParams()
       .set('login', login.toString());

@@ -22,6 +22,12 @@ namespace ChatProject.Controllers
             return _service.GetChatById( id );
         }
 
+        [HttpGet( "permission" )]
+        public bool GetPermission( int id, string login )
+        {
+            return _service.IsHavePermission( id, login );
+        }
+
         [HttpGet( "chats" )]
         public List<ChatDto> GetChats( string login )
         {

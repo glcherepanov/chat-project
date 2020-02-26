@@ -49,16 +49,23 @@ export class FriendComponent {
     const chat: ChatDto = new ChatDto;
     chat.name = this._cookie.get( 'login' ) + '_' + this.friendLogin;
     chat.type = ChatType.Group;
+    const login = this._cookie.get( 'login' );
+    const friend = this.friendLogin;
+    const service = this._chatHttpService;
+    const router = this._router;
 
     let chatId: number;
-    const _this = this;
 
     this._chatHttpService.addChat( chat ).subscribe({
       next(response: number) { chatId = response; },
       complete() {
-        _this._chatHttpService.AddUserToChat( chatId, _this._cookie.get( 'login' ) ).subscribe();
-        _this._chatHttpService.AddUserToChat( chatId, _this.friendLogin ).subscribe();
-        _this._router.navigateByUrl('/chat-list/' + chatId );
+        console.log( chatId );
+        console.log( login );
+        console.log( friend );
+
+        service.AddUserToChat( chatId, login ).subscribe();
+        service.AddUserToChat( chatId, friend ).subscribe();
+        router.navigateByUrl('/chat-list/' + chatId );
        }
     });
 

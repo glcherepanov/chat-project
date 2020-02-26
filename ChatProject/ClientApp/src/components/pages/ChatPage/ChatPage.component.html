@@ -1,23 +1,29 @@
-<div *ngIf="isChangeImage">
-  <h5>Введите новый путь к изображению</h5>
-  <form action="#">
-    <input [(ngModel)]="newPath" name="path" type="text" class="form-control" placeholder="path to image..." required="" autofocus="">
-    <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="changeImage()">Отправить</button>
-  </form>
-</div>
-<div class="chat-container">
-  <img style="height: 50px; width: 50px;" src="{{chat?.image}}" (click)="change()"/>
-  <h1>{{chat?.name}}</h1>
-</div>
-<div class="chat">
-  <div *ngFor="let message of messages" class="chat-container">
-    <p>{{message.userLogin}} : {{message.text}}</p>
-    <span class="time-right">{{dateToString(message.date)}}</span>
+<div *ngIf="havePermision; then allowed else notAllowed"></div>
+<ng-template #allowed>
+  <div *ngIf="isChangeImage">
+    <h5>Введите новый путь к изображению</h5>
+    <form action="#">
+      <input [(ngModel)]="newPath" name="path" type="text" class="form-control" placeholder="path to image..." required="" autofocus="">
+      <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="changeImage()">Отправить</button>
+    </form>
   </div>
-</div>
-<div class="form-message">
-  <form action="#">
-    <input [(ngModel)]="message.text" name="message" type="text" class="form-control" placeholder="Message..." required="" autofocus="">
-    <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="send()" (keyup.enter)="send()">Отправить</button>
-  </form>
-</div>
+  <div class="chat-container">
+    <img style="height: 50px; width: 50px;" src="{{chat?.image}}" (click)="change()" />
+    <h1>{{chat?.name}}</h1>
+  </div>
+  <div class="chat">
+    <div *ngFor="let message of messages" class="chat-container">
+      <p>{{message.userLogin}} : {{message.text}}</p>
+      <span class="time-right">{{dateToString(message.date)}}</span>
+    </div>
+  </div>
+  <div class="form-message">
+    <form action="#">
+      <input [(ngModel)]="message.text" name="message" type="text" class="form-control" placeholder="Message..." required="" autofocus="">
+      <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="send()" (keyup.enter)="send()">Отправить</button>
+    </form>
+  </div>
+</ng-template>
+<ng-template #notAllowed>
+  404
+</ng-template>

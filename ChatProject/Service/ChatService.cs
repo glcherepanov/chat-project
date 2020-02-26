@@ -18,6 +18,20 @@ namespace ChatProject.Service
 
         }
 
+        public bool IsHavePermission( int id, string login )
+        {
+            int userId = GetUserIdByLogin( login );
+
+            if ( _context.ChatUsers.Any( cu => cu.UserId == userId && cu.Id == id ) )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool RemoveChat( int id )
         {
             try

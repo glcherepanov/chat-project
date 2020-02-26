@@ -20,6 +20,7 @@ export class ChatPageComponent {
   public chat: ChatDto;
   public newPath: string;
   public isChangeImage: boolean = false;
+  public havePermision: boolean = false;
 
   public constructor(chatHttpService: ChatHttpService, private _cookie: CookieService, route: ActivatedRoute) {
     this._chatHttpService = chatHttpService;
@@ -27,10 +28,19 @@ export class ChatPageComponent {
 
     route.params.subscribe(params => {
       this.message.chatId = params['id'] !== undefined
-        ? Number(params['id'])
-        : 0;
+      ? Number(params['id'])
+      : 0;
       this.reloadMessages();
       this.reloadChat();
+    });
+
+    this.isHavePermision();
+    console.log( this.havePermision );
+  }
+
+  private isHavePermision(): void {
+    this._chatHttpService.havePermision( this.message.chatId, this.message.userLogin ).subscribe(value => {
+      this.havePermision = value;
     });
   }
 
@@ -58,14 +68,13 @@ export class ChatPageComponent {
 
   public send(): void {
     this.message.date = new Date();
-    const _this = this;
     let send: boolean;
     this._chatHttpService.sendMessage( this.message ).subscribe({
       next(response: boolean) { send = response; },
       complete() {
         if ( send ) {
-          _this.reloadMessages();
-          _this.message.text = '';
+          this.reloadMessages();
+          this.message.text = '';
         } else {
           console.log( 'Error send message' );
         }

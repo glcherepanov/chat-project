@@ -46,8 +46,6 @@
           <th scope="col">Имя</th>
           <th scope="col">Логин</th>
           <th scope="col">Права</th>
-          <th scope="col">Изменить права</th>
-          <th scope="col">Удалить</th>
         </tr>
       </thead>
       <tbody>
@@ -55,22 +53,6 @@
           <th>{{user.name}}</th>
           <th>{{user.login}}</th>
           <th>{{getUserType(user.type)}}</th>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-default">Изменить</button>
-              <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="#">Админ</a></li>
-                <li><a href="#">Пользователь</a></li>
-                <li><a href="#">Бан</a></li>
-              </ul>
-            </div>
-          </td>
-          <td>
-            <div class="btn-group" role="group">
-              <button type="button" class="btn btn-danger" (click)="deleteUser(user.userId)">Удалить</button>
-            </div>
-          </td>
         </tr>
       </tbody>
     </table>
