@@ -4,6 +4,7 @@ import { ChatHttpService } from './../../../HttpServices/ChatHttpService';
 import { UserHttpService } from '../../../HttpServices/UserHttpService';
 import { CookieService } from 'ngx-cookie-service';
 import { UserDto } from '../../../dto/user/UserDto';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChatType } from '../../../dto/chat/ChatType';
 import { subscribeOn } from 'rxjs/operator/subscribeOn';
 
@@ -20,7 +21,7 @@ export class ChatCreateComponent {
   public selectUsers: UserDto[] = [];
   public friends: UserDto[];
 
-  public constructor(chatsService: ChatHttpService, userService: UserHttpService, private cookie: CookieService) {
+  public constructor(chatsService: ChatHttpService, userService: UserHttpService, private cookie: CookieService, private _router: Router) {
     this._chatHttpService = chatsService;
     this._userHttpService = userService;
     this.reloadFriends();
@@ -46,15 +47,21 @@ export class ChatCreateComponent {
     const chat: ChatDto = new ChatDto;
     chat.name = this.nameConversation;
     chat.type = ChatType.Group;
-    const _this = this;
-    this._chatHttpService.addChat( chat ).subscribe({
+    const login = this.cookie.get('login');
+    const service = this._chatHttpService;
+    const router = this._router;
+    const usersForConv = this.selectUsers;
+
+    let chatId: number;
+    this._chatHttpService.addChat(chat).subscribe({
       next(id: number) { chat.id = id; },
       complete() {
-        _this._chatHttpService.AddUserToChat( chat.id, _this.cookie.get( 'login' ) ).subscribe();
-        for ( const user of _this.selectUsers ) {
-          _this._chatHttpService.AddUserToChat( chat.id, user.login ).subscribe();
+        service.AddUserToChat(chat.id, login).subscribe();
+        for (const user of usersForConv) {
+          service.AddUserToChat(chat.id, user.login).subscribe();
         }
-     }
+        router.navigateByUrl('/chat-list/' + chat.id);
+      }
     });
   }
 }
