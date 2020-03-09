@@ -22,7 +22,7 @@ namespace ChatProject.Service
         {
             int userId = GetUserIdByLogin( login );
 
-            if ( _context.ChatUsers.Any( cu => cu.UserId == userId && cu.Id == id ) )
+            if ( _context.ChatUsers.Any( cu => cu.UserId == userId && cu.ChatId == id ) )
             {
                 return true;
             }

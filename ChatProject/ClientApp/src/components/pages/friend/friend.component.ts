@@ -59,13 +59,9 @@ export class FriendComponent {
     this._chatHttpService.addChat( chat ).subscribe({
       next(response: number) { chatId = response; },
       complete() {
-        console.log( chatId );
-        console.log( login );
-        console.log( friend );
-
         service.AddUserToChat( chatId, login ).subscribe();
         service.AddUserToChat( chatId, friend ).subscribe();
-        router.navigateByUrl('/chat-list/' + chatId );
+        router.navigateByUrl( '/chat-list/' + chatId );
        }
     });
 
