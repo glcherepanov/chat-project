@@ -14,12 +14,12 @@
   <div class="chat">
     <div *ngFor="let message of messages" class="chat-container">
       <p>{{message.userLogin}} : {{message.text}}</p>
-      <span class="time-right">{{dateToString(message.date)}}</span>
+      <span class="time-right">{{message.date | date : 'medium'}}</span>
     </div>
   </div>
   <div class="form-message">
     <form action="#">
-      <input [(ngModel)]="message.text" name="message" type="text" class="form-control" placeholder="Message..." required="" autofocus="">
+      <input [(ngModel)]="message.text" id="textMessageForm" name="message" type="text" class="form-control" placeholder="Message..." required="" autofocus="">
       <button type="button" class="btn-send-message btn btn-primary btn-outline-dark" (click)="send()" (keyup.enter)="send()">Отправить</button>
     </form>
   </div>

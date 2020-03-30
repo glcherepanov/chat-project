@@ -78,15 +78,12 @@ export class ChatPageComponent {
       next(response: boolean) { send = response; },
       complete() {
         if (send) {
+          (<HTMLInputElement>document.getElementById('textMessageForm')).value = '';
           console.log('Send message');
         } else {
           console.log('Error send message');
         }
       }
     });
-  }
-
-  public dateToString(date: Date): string {
-    return date.toLocaleString();
   }
 }

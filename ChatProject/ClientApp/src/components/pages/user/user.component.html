@@ -27,12 +27,16 @@
   <table class="table">
       <thead>
         <tr>
-          <th scope="col">Сообщения:</th>
+          <th scope="col">Текст:</th>
+          <th scope="col">Когда отправлено:</th>
+          <th scope="col">Чат</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let message of userMessages">
           <th>{{message.text}}</th>
+          <th>{{message.date | date : "dd.MM.y"}}</th>
+          <th><a routerLink="./{{message.chatId}}">Чат</a></th>
         </tr>
       </tbody>
     </table>
