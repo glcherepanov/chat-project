@@ -12,17 +12,17 @@ namespace ChatProject.Service
     {
         private readonly ChatProjectDBContext _context;
 
-        public ChatService( ChatProjectDBContext context )
+        public ChatService(ChatProjectDBContext context)
         {
             _context = context;
 
         }
 
-        public bool IsHavePermission( int id, string login )
+        public bool IsHavePermission(int id, string login)
         {
-            int userId = GetUserIdByLogin( login );
+            int userId = GetUserIdByLogin(login);
 
-            if ( _context.ChatUsers.Any( cu => cu.UserId == userId && cu.ChatId == id ) )
+            if (_context.ChatUsers.Any(cu => cu.UserId == userId && cu.ChatId == id))
             {
                 return true;
             }
@@ -32,75 +32,75 @@ namespace ChatProject.Service
             }
         }
 
-        public bool RemoveChat( int id )
+        public bool RemoveChat(int id)
         {
             try
             {
-                var users = _context.ChatUsers.Where( c => c.ChatId == id ).ToList();
-                _context.ChatUsers.RemoveRange( users );
+                var users = _context.ChatUsers.Where(c => c.ChatId == id).ToList();
+                _context.ChatUsers.RemoveRange(users);
 
-                var chat = _context.Chats.FirstOrDefault( c => c.Id == id );
-                var image = _context.Images.FirstOrDefault( i => i.Id == chat.ImageId );
-                _context.Chats.Remove( chat );
-                _context.Images.Remove( image );
+                var chat = _context.Chats.FirstOrDefault(c => c.Id == id);
+                var image = _context.Images.FirstOrDefault(i => i.Id == chat.ImageId);
+                _context.Chats.Remove(chat);
+                _context.Images.Remove(image);
 
                 return true;
             }
-            catch ( Exception )
+            catch (Exception)
             {
                 return false;
             }
         }
 
-        public int AddChat( ChatDto chat )
+        public int AddChat(ChatDto chat)
         {
             try
             {
-                Chat oldChat = _context.Chats.FirstOrDefault( c => c.Name == chat.Name );
-                if ( oldChat != null )
+                Chat oldChat = _context.Chats.FirstOrDefault(c => c.Name == chat.Name);
+                if (oldChat != null)
                 {
                     return oldChat.Id;
                 }
-                _context.Chats.Add( new Chat
+                _context.Chats.Add(new Chat
                 {
                     Type = chat.Type,
                     Name = chat.Name,
-                } );
+                });
                 _context.SaveChanges();
 
                 int chatId = _context.Chats.LastOrDefault().Id;
-                ChangeChatImage( chatId, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpp-Iiom4henDj6g8u2WRT2Aaej-FVNYDnNV1mhlrxZGZsa2YOzQ&s" );
+                ChangeChatImage(chatId, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpp-Iiom4henDj6g8u2WRT2Aaej-FVNYDnNV1mhlrxZGZsa2YOzQ&s");
 
                 return chatId;
             }
-            catch ( Exception )
+            catch (Exception)
             {
                 return 0;
             }
         }
 
-        public bool AddUserToChat( int id, string login )
+        public bool AddUserToChat(int id, string login)
         {
             try
             {
-                var userId = GetUserIdByLogin( login );
+                var userId = GetUserIdByLogin(login);
 
-                _context.ChatUsers.Add( new ChatUser
+                _context.ChatUsers.Add(new ChatUser
                 {
                     ChatId = id,
                     UserId = userId
-                } );
+                });
                 _context.SaveChanges();
 
                 return true;
             }
-            catch ( Exception )
+            catch (Exception)
             {
                 return false;
             }
         }
 
-        public ChatDto GetChatById( int id )
+        public ChatDto GetChatById(int id)
         {
             var chatQry =
                 from chat in _context.Chats
@@ -117,7 +117,7 @@ namespace ChatProject.Service
             return chatQry.FirstOrDefault();
         }
 
-        public List<ChatDto> GetChatsByLogin( string login )
+        public List<ChatDto> GetChatsByLogin(string login)
         {
             var chats =
                 from user in _context.Users
@@ -137,15 +137,15 @@ namespace ChatProject.Service
             return chats.ToList();
         }
 
-        public List<MessageDto> GetChatMessages( int id )
+        public List<MessageDto> GetChatMessages(int id)
         {
-            List<int> messegesIds = _context.ChatMessages.Where( item => item.ChatId == id ).Select( item => item.MessageId ).ToList();
-            Dictionary<int, List<int>> usersMesseges = _context.UserMessages
-                .Where( item => messegesIds.Contains( item.MessageId ) )
-                .GroupBy( item => item.UserId )
-                .ToDictionary( item => item.Key, item => item.Select( i => i.MessageId ).ToList() );
+            List<int> messagesIds = _context.ChatMessages.Where(item => item.ChatId == id).Select(item => item.MessageId).ToList();
+            Dictionary<int, List<int>> usersMessages = _context.UserMessages
+                .Where(item => messagesIds.Contains(item.MessageId))
+                .GroupBy(item => item.UserId)
+                .ToDictionary(item => item.Key, item => item.Select(i => i.MessageId).ToList());
 
-            var messeges =
+            var messages =
                 from chatMessage in _context.ChatMessages
                 join message in _context.Messages on chatMessage.MessageId equals message.Id
                 join userMessage in _context.UserMessages on message.Id equals userMessage.MessageId
@@ -160,14 +160,14 @@ namespace ChatProject.Service
                 };
 
 
-            return messeges.ToList();
+            return messages.ToList();
         }
 
-        public bool SaveMessage( MessageDto message )
+        public bool SaveMessage(MessageDto message)
         {
             try
             {
-                _context.Messages.Add( new Message
+                _context.Messages.Add(new Message
                 {
                     Date = DateTime.Now,
                     Text = message.Text
@@ -175,16 +175,16 @@ namespace ChatProject.Service
                 _context.SaveChanges();
 
                 var newMessage = _context.Messages.LastOrDefault();
-                _context.ChatMessages.Add( new ChatMessage
+                _context.ChatMessages.Add(new ChatMessage
                 {
                     MessageId = newMessage.Id,
                     ChatId = message.ChatId
-                } );
-                _context.UserMessages.Add( new UserMessage
+                });
+                _context.UserMessages.Add(new UserMessage
                 {
-                    UserId = GetUserIdByLogin( message.UserLogin ),
+                    UserId = GetUserIdByLogin(message.UserLogin),
                     MessageId = newMessage.Id
-                } );
+                });
 
                 _context.SaveChanges();
             }
@@ -196,7 +196,7 @@ namespace ChatProject.Service
             return true;
         }
 
-        public bool ChangeChatImage( int id, string path )
+        public bool ChangeChatImage(int id, string path)
         {
             try
             {
@@ -207,10 +207,10 @@ namespace ChatProject.Service
                     select image;
 
                 var imageData = imageQry.FirstOrDefault();
-                if ( imageData != null )
+                if (imageData != null)
                 {
                     imageData.Path = path;
-                    _context.Images.Update( imageData );
+                    _context.Images.Update(imageData);
                 }
                 else
                 {
@@ -218,29 +218,29 @@ namespace ChatProject.Service
                     {
                         Path = path
                     };
-                    _context.Add( image );
+                    _context.Add(image);
                     _context.SaveChanges();
 
                     image = _context.Images.LastOrDefault();
-                    var chat = _context.Chats.FirstOrDefault( c => c.Id == id );
+                    var chat = _context.Chats.FirstOrDefault(c => c.Id == id);
                     chat.ImageId = image.Id;
 
-                    _context.Chats.Update( chat );
+                    _context.Chats.Update(chat);
                 }
 
                 _context.SaveChanges();
 
                 return true;
             }
-            catch ( Exception )
+            catch (Exception)
             {
                 return false;
             }
         }
 
-        private int GetUserIdByLogin( string login )
+        private int GetUserIdByLogin(string login)
         {
-            return ( int ) _context.Users.FirstOrDefault( user => user.Login == login )?.Id;
+            return (int)_context.Users.FirstOrDefault(user => user.Login == login)?.Id;
         }
     }
 }
