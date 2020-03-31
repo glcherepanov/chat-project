@@ -6,11 +6,10 @@
 <hr>
 <div class="list-group">
     <ng-container *ngFor="let chat of chats" >
-        <a routerLink="./{{chat.id}}" class="list-group-item list-group-item-action flex-column align-items-start active">
+        <a routerLink="./{{chat.id}}" class="list-group-item list-group-item-action flex-column align-items-start chat-open-button">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{chat.name}}</h5>
             </div>
-            <p class="mb-1">Последнее сообщение</p>
             <small *ngIf="chat.typeChat == 1">Беседа</small>
         </a>
     </ng-container>

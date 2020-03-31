@@ -9,6 +9,7 @@ import { MessageDto } from '../../../dto/message/MessageDto';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
   providers: [UserHttpService, CookieService]
 })
 
@@ -29,7 +30,7 @@ export class UserComponent {
   }
 
   private reloadUserData(): void {
-    this._userHttpService.getUser( this._cookie.get( 'login' ) ).subscribe(value => {
+    this._userHttpService.getUser(this._cookie.get('login')).subscribe(value => {
       this.mainUser = value;
     });
   }
@@ -77,8 +78,11 @@ export class UserComponent {
   }
 
   public messages(): void {
-    this._userHttpService.messages( this._cookie.get('login'), this.start, this.end ).subscribe(value => {
-      this.userMessages = value;
-    });
+    if ((this.start !== undefined) && (this.end !== undefined)){
+      this._userHttpService.messages(this._cookie.get('login'), this.start, this.end).subscribe(value => {
+        this.userMessages = value;
+      });
+    }
+    
   }
 }

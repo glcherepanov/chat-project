@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
     selector: 'app-chat-list',
     templateUrl: './ChatList.component.html',
+    styleUrls: ['./ChatList.component.scss'],
     providers: [ChatHttpService]
 })
 

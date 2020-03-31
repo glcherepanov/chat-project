@@ -19,10 +19,13 @@
     </ul>
   </div>
   <hr>
-  <input [(ngModel)]="start" type="date" />
-  <input [(ngModel)]="end" type="date" />
   <div>
-    <button type="button" class="btn btn-outline-primary" (click)="messages()">Отобразить отправленные сообщения</button>
+    <h4>Выберите период отображения сообщений.</h4>
+    <div>Начало<input [(ngModel)]="start" class="calendar-control" type="date" /></div>
+    <div>Конец<input [(ngModel)]="end" class="calendar-control" type="date" /></div>
+  </div>
+  <div>
+    <button type="button" class="btn btn-outline-primary open-message-button" (click)="messages()">Отобразить отправленные сообщения</button>
   </div>
   <table class="table">
     <thead>

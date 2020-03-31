@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
     selector: 'app-friends',
     templateUrl: './friends.component.html',
+    styleUrls: ['./friends.component.scss'],
     providers: [UserHttpService]
 })
 
