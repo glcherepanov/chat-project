@@ -73,10 +73,12 @@ namespace ChatProject.Service
             var messageQry =
                 from userMes in _context.UserMessages
                 join message in _context.Messages on userMes.MessageId equals message.Id
+                join messageChat in _context.ChatMessages on message.Id equals messageChat.MessageId
                 where message.Date >= start && message.Date <= end
                 select new MessageDto
                 {
                     UserLogin = login,
+                    ChatId = messageChat.ChatId,
                     Text = message.Text,
                     Date = message.Date
                 };
