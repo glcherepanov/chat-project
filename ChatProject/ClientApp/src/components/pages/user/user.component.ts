@@ -19,6 +19,8 @@ export class UserComponent {
   public mainUser: UserDto = new UserDto();
   public oldpass: string;
   public newpass: string;
+  public newname: string;
+  public errorChangePassword: boolean;
   public start: Date;
   public end: Date;
   public userMessages: MessageDto[] = [];
@@ -47,22 +49,21 @@ export class UserComponent {
     });
   }
 
-  public openChangePasswordBlock(blockId: string): void {
+  public openChangePasswordBlock(blockId: string, buttonId: string): void {
     if (document.getElementById(blockId).style.display == 'none') {
       document.getElementById(blockId).style.display = 'block';
+      document.getElementById(buttonId).style.display = 'none';
     }
   }
 
-  public changePassword(blockId: string): void {
-    if (this._userHttpService.login(this.mainUser.login, Md5.init(this.oldpass)) && !(this.oldpass === this.newpass)) {
+  public changePassword(): void {
+    if (this._userHttpService.login(this.mainUser.login, Md5.init(this.oldpass)) && !(this.oldpass === this.newpass) && (this.newpass !== undefined)) {
       console.log('Old password done!');
       this.mainUser.password = Md5.init(this.newpass);
       console.log(this.mainUser.password);
       //написать в userHttpService функцию для changePassword
     } else {
-      if (document.getElementById(blockId).style.display == 'none') {
-        document.getElementById(blockId).style.display = 'block';
-      }
+      this.errorChangePassword = true;
     }
   }
 
@@ -78,11 +79,21 @@ export class UserComponent {
   }
 
   public messages(): void {
-    if ((this.start !== undefined) && (this.end !== undefined)){
+    if ((this.start !== undefined) && (this.end !== undefined)) {
       this._userHttpService.messages(this._cookie.get('login'), this.start, this.end).subscribe(value => {
         this.userMessages = value;
       });
     }
-    
+  }
+
+  public changeName(): void {
+    if (this.newname !== undefined) {
+      //this._userHttpService.changeName(this._cookie.get('login'), this.newname).subscribe(value => {
+
+      //});
+      console.log(this.newname);
+    } else {
+      console.log("error name");
+    }
   }
 }
