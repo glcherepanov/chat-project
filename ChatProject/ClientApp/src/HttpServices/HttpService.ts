@@ -17,12 +17,16 @@ export class HttpService {
   }
 
   private addDiv(element: HTMLDivElement, className: string): void {
-    element.className = className;
-    this.bodyElement.appendChild(element);
+    if (this.bodyElement.getElementsByClassName(element.className).length === 0) {
+      element.className = className;
+      this.bodyElement.appendChild(element);
+    }
   }
 
   private removeDiv(element: HTMLDivElement): void {
-    this.bodyElement.removeChild(element);
+    if (this.bodyElement.getElementsByClassName(element.className).length !== 0) {
+      this.bodyElement.removeChild(element);
+    }
   }
 
   public get<T>(url: string, params?: HttpParams): Observable<T> {

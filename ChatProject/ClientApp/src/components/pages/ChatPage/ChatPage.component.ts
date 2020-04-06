@@ -34,7 +34,6 @@ export class ChatPageComponent {
     });
 
     this.isHavePermision();
-    console.log(this.havePermision);
   }
 
   private isHavePermision(): void {
