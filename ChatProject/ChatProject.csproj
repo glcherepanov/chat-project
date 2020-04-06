@@ -29,11 +29,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\components\pages\search\search.component.ts" />
     <None Remove="ClientApp\src\dto\message\SendMessage.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EF\EF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\components\pages\search\search.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
