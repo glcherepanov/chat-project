@@ -11,9 +11,17 @@ import { FriendDto } from '../../../dto/friends/FriendDto';
 })
 
 export class SearchComponent {
+  private readonly _service: UserHttpService;
   public resultusers: FriendDto[];
+  public login: string;
 
-  public constructor() {
+  public constructor( service: UserHttpService ) {
+    this._service = service;
+  }
 
+  public getUsers(): void {
+    this._service.getUsersByLogin( this.login ).subscribe( value => {
+      this.resultusers = value;
+    });
   }
 }

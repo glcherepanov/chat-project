@@ -2,8 +2,8 @@
 <hr>
 <div class="form-container">
   <form class="form-signin" role="form">
-    <input name="login" type="text" class="form-control" placeholder="Логин">
-    <button class="btn btn-lg btn-primary btn-block button-search">Поиск</button>
+    <input [(ngModel)]="login" name="login" type="text" class="form-control" placeholder="Логин">
+    <button class="btn btn-lg btn-primary btn-block button-search" (click)="getUsers()">Поиск</button>
   </form>
 </div>
 <div>
@@ -11,7 +11,7 @@
   <h4>Результат поиска</h4>
   <div class="list-group">
     <ng-container *ngFor="let resultuser of resultusers">
-      <a routerLink="/users/{{user.login}}" class="list-group-item list-group-item-action flex-column align-items-start user-page-open-button">
+      <a routerLink="/users/{{resultuser.login}}" class="list-group-item list-group-item-action flex-column align-items-start user-page-open-button">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{resultuser.name}}</h5>
         </div>

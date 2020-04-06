@@ -29,6 +29,12 @@ namespace ChatProject.Controllers
             return _service.GetUsers();
         }
 
+        [HttpGet( "users-by-login" )]
+        public List<UserDto> GetUsers( string login )
+        {
+            return _service.GetUsersByLogin( login );
+        }
+
         [HttpGet( "friends" )]
         public List<UserDto> GetUserFriends( string login )
         {
@@ -38,7 +44,25 @@ namespace ChatProject.Controllers
         [HttpPost( "add" )]
         public bool AddUser( [FromBody] UserDto user )
         {
-           return _service.AddUser( user );
+            return _service.AddUser( user );
+        }
+
+        [HttpGet( "is-friend" )]
+        public bool IsFriend( string login, string friend )
+        {
+            return _service.IsFriend( login, friend );
+        }
+
+        [HttpPost( "add-friend" )]
+        public bool AddFriend( string login, string friend )
+        {
+            return _service.AddFriend( login, friend );
+        }
+
+        [HttpPost( "remove-friend" )]
+        public bool RemoveFriend( string login, string friend )
+        {
+            return _service.RemoveFriend( login, friend );
         }
 
         [HttpGet( "login" )]

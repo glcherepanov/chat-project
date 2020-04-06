@@ -18,13 +18,18 @@ export class ChatUserPageComponent {
   public isFriend: boolean;
   public friend: UserDto = new UserDto();
   public friendLogin: string;
+  private readonly userLogin: string;
 
   public constructor(userHttpService: UserHttpService, route: ActivatedRoute, private _cookie: CookieService, private _chatHttpService: ChatHttpService, private _router: Router) {
     this._userHttpService = userHttpService;
     route.params.subscribe(params => {
       this.friendLogin = params['login'];
     });
+
+    this.userLogin = this._cookie.get('login');
+
     this.reloadUser();
+    this.checkIsFriend();
   }
 
   private reloadUser(): void {
@@ -33,15 +38,21 @@ export class ChatUserPageComponent {
     });
   }
 
-  public remove(id: number): void {
-    this._userHttpService.removeUser(id).subscribe(() => {
-      this.reloadUser();
+  private checkIsFriend(): void {
+    this._userHttpService.isFriend( this.userLogin, this.friendLogin ).subscribe( value => {
+      this.isFriend = value;
     });
   }
 
-  public add(userLogin: string): void {
-    this._userHttpService.addFriend(this._cookie['login'], userLogin).subscribe(() => {
-      this.reloadUser();
+  public remove(): void {
+    this._userHttpService.removeFriend(this.userLogin, this.friendLogin).subscribe(() => {
+      this.checkIsFriend();
+    });
+  }
+
+  public add(): void {
+    this._userHttpService.addFriend(this.userLogin, this.friendLogin).subscribe(() => {
+      this.checkIsFriend();
     });
   }
 

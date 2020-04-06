@@ -34,11 +34,9 @@ export class ChatCreateComponent {
   }
 
   public createChatData(idBlock: string): void {
-    if ((undefined === this.nameConversation) || (this.selectUsers.length < 2)) {
+    if (undefined === this.nameConversation) {
       document.getElementById(idBlock).style.display = 'block';
     } else {
-      console.log(this.nameConversation);
-      console.log(this.selectUsers);
       this.add();
     }
   }
@@ -60,7 +58,9 @@ export class ChatCreateComponent {
         for (const user of usersForConv) {
           service.AddUserToChat(chat.id, user.login).subscribe();
         }
-        router.navigateByUrl('/chat-list/' + chat.id);
+        setTimeout(function () {
+          router.navigateByUrl('/chat-list/' + chat.id);
+        }, 1000);
       }
     });
   }

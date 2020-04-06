@@ -57,6 +57,69 @@ namespace ChatProject.Service
             return Convert( _context.Users.Where( item => item.Login == login ).FirstOrDefault() );
         }
 
+        public List<UserDto> GetUsersByLogin( string login )
+        {
+            return _context.Users.Where( user => user.Login.Contains( login ) ).ToList().ConvertAll( Convert );
+        }
+
+        public bool IsFriend( string login, string friend )
+        {
+            int userId = (int) GetUserByLogin( login )?.Id;
+            int friendId = ( int ) GetUserByLogin( friend )?.Id;
+
+            return _context.UserFriends.Any( userFriend => userFriend.UserId == userId && userFriend.FriendId == friendId )
+                ? true
+                : false;
+        }
+
+        public bool AddFriend( string login, string friend )
+        {
+            int? userId = GetUserByLogin( login )?.Id;
+            int? friendId = GetUserByLogin( friend )?.Id;
+
+            if ( userId != null && friendId != null )
+            {
+                _context.UserFriends.Add( new UserFriend
+                {
+                    UserId = ( int ) userId,
+                    FriendId = ( int ) friendId
+                } );
+                _context.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveFriend( string login, string friend )
+        {
+            int? userId = GetUserByLogin( login )?.Id;
+            int? friendId = GetUserByLogin( friend )?.Id;
+
+            if ( userId != null && friendId != null )
+            {
+                UserFriend userFriend = _context.UserFriends.FirstOrDefault( uf => uf.UserId == userId && uf.FriendId == friendId );
+                if ( userFriend != null )
+                {
+                    _context.Remove( userFriend );
+                    _context.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public List<UserDto> GetFriends( string login )
         {
             User user = _context.Users.Where( item => item.Login == login ).FirstOrDefault();
