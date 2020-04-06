@@ -21,6 +21,7 @@ export class UserComponent {
   public newpass: string;
   public newname: string;
   public errorChangePassword: boolean;
+  public errorChangeName: boolean;
   public start: Date;
   public end: Date;
   public userMessages: MessageDto[] = [];
@@ -58,11 +59,9 @@ export class UserComponent {
 
   public changePassword(): void {
     if (this._userHttpService.login(this.mainUser.login, Md5.init(this.oldpass)) && !(this.oldpass === this.newpass) && (this.newpass !== undefined)) {
-      console.log('Old password done!');
       this.mainUser.password = Md5.init(this.newpass);
-      console.log(this.mainUser.password);
       this._userHttpService.changePassword( this.mainUser.login, this.mainUser.password ).subscribe(value => {
-        console.log(value);
+        window.location.reload();
       });
     } else {
       this.errorChangePassword = true;
@@ -91,11 +90,10 @@ export class UserComponent {
   public changeName(): void {
     if (this.newname !== undefined) {
       this._userHttpService.changeName(this._cookie.get('login'), this.newname).subscribe(value => {
-        console.log(value);
+        window.location.reload();
       });
-      console.log(this.newname);
     } else {
-      console.log("error name");
+      this.errorChangeName = true;
     }
   }
 }

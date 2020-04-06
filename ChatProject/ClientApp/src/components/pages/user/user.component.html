@@ -24,16 +24,17 @@
       <button type="button" class="btn btn-outline-primary" (click)="openChangePasswordBlock('changeNameBlock', 'buttonChangeName')">Сменить имя</button>
     </div>
     <div id="changeNameBlock" style="display: none;">
-      <input [(ngModel)]="newname" placeholder="Новое имя" form="data" />
+      <input [(ngModel)]="newname" placeholder="Новое имя" form="data" type="text"/>
       <button type="button" class="btn btn-outline-primary" (click)="changeName()">Сменить</button>
+      <div *ngIf="errorChangeName" class="alert alert-danger" role="alert">Ошибка смены имени</div>
     </div>
     <hr>
     <div id="buttonChangePassword">
       <button type="button" class="btn btn-outline-primary" (click)="openChangePasswordBlock('changePasswordBlock', 'buttonChangePassword')">Сменить пароль</button>
     </div>
   <div id="changePasswordBlock" style="display: none;">
-    <input [(ngModel)]="oldpass" placeholder="Старый пароль" form="data" />
-    <input [(ngModel)]="newpass" placeholder="Новый пароль" form="data" />
+    <input [(ngModel)]="oldpass" placeholder="Старый пароль" form="data" type="password"/>
+    <input [(ngModel)]="newpass" placeholder="Новый пароль" form="data" type="password"/>
     <button type="button" class="btn btn-outline-primary" (click)="changePassword()">Сменить</button>
     <div *ngIf="errorChangePassword" class="alert alert-danger" role="alert">Неверный логин или пароль</div>
   </div>
