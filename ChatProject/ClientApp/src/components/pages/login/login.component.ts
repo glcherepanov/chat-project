@@ -7,6 +7,7 @@ import { Md5 } from 'md5-typescript';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   providers: [UserHttpService]
 })
 export class LoginComponent {
