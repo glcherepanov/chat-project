@@ -15,5 +15,7 @@ namespace ChatProject.Service
         UserDto GetUserByLogin( string login );
         List<UserDto> GetFriends( string login );
         List<MessageDto> GetMessagesByDates( string login, DateTime start, DateTime end );
+        bool ChangeName( string login, string name );
+        bool ChangePassword( string login, string password );
     }
 }

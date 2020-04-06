@@ -68,9 +68,9 @@ namespace ChatProject.Service
 
         public List<MessageDto> GetMessagesByDates( string login, DateTime start, DateTime end )
         {
-            var userId = GetUserByLogin( login ).Id;
+            int userId = GetUserByLogin( login ).Id;
 
-            var messageQry =
+            IQueryable<MessageDto> messageQry =
                 from userMes in _context.UserMessages
                 join message in _context.Messages on userMes.MessageId equals message.Id
                 join messageChat in _context.ChatMessages on message.Id equals messageChat.MessageId
@@ -84,6 +84,42 @@ namespace ChatProject.Service
                 };
 
             return messageQry.ToList();
+        }
+
+        public bool ChangeName( string login, string name )
+        {
+            User user = _context.Users.FirstOrDefault( u => u.Login == login );
+
+            if ( user != null )
+            {
+                user.Name = name;
+                _context.Users.Update( user );
+                _context.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool ChangePassword( string login, string password )
+        {
+            User user = _context.Users.FirstOrDefault( u => u.Login == login );
+
+            if ( user != null )
+            {
+                user.Password = password;
+                _context.Users.Update( user );
+                _context.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private UserDto Convert( User user )
