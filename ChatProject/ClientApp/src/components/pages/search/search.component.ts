@@ -13,7 +13,7 @@ import { FriendDto } from '../../../dto/friends/FriendDto';
 export class SearchComponent {
   public resultusers: FriendDto[];
 
-  public SearchComponent() {
+  public constructor() {
 
   }
 }

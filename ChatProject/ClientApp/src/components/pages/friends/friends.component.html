@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <h1>Ваши друзья</h1>
-    <hr>
-    <div class="list-group">
-      <div *ngFor="let user of users">
-          <a routerLink="/friend/{{user.login}}" class="list-group-item friend-open-button">{{ user.name }}</a>
-      </div>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h1>Ваши друзья</h1>
+  <hr>
+  <div class="list-group">
+    <div *ngFor="let user of users">
+      <a routerLink="/users/{{user.login}}" class="list-group-item friend-open-button">{{ user.name }}</a>
     </div>
-  </body>
+  </div>
+</body>
 </html>
