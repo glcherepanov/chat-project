@@ -54,5 +54,17 @@ namespace ChatProject.Controllers
         {
             return _service.GetMessagesByDates( login, start, end );
         }
+
+        [HttpPost( "name" )]
+        public bool ChangeName( string login, string name )
+        {
+            return _service.ChangeName( login, name );
+        }
+
+        [HttpPost( "password" )]
+        public bool ChangePassword( string login, string password )
+        {
+            return _service.ChangePassword( login, password );
+        }
     }
 }

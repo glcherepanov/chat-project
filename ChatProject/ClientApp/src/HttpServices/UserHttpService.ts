@@ -67,4 +67,18 @@ export class UserHttpService {
             .set('end', end.toString());
         return this._httpService.get<MessageDto[]>('api/user/messages', params);
     }
+
+    public changeName( login: string, name: string ): Observable<boolean> {
+        const params: HttpParams = new HttpParams()
+            .set('login', login)
+            .set('name', name);
+        return this._httpService.post<HttpParams, boolean>('api/user/name', params);
+    }
+
+    public changePassword( login: string, password: string ): Observable<boolean> {
+        const params: HttpParams = new HttpParams()
+            .set('login', login)
+            .set('password', password);
+        return this._httpService.post<HttpParams, boolean>('api/user/password', params);
+    }
 }

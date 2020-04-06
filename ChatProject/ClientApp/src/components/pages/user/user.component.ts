@@ -61,7 +61,9 @@ export class UserComponent {
       console.log('Old password done!');
       this.mainUser.password = Md5.init(this.newpass);
       console.log(this.mainUser.password);
-      //написать в userHttpService функцию для changePassword
+      this._userHttpService.changePassword( this.mainUser.login, this.mainUser.password ).subscribe(value => {
+        console.log(value);
+      });
     } else {
       this.errorChangePassword = true;
     }
@@ -88,9 +90,9 @@ export class UserComponent {
 
   public changeName(): void {
     if (this.newname !== undefined) {
-      //this._userHttpService.changeName(this._cookie.get('login'), this.newname).subscribe(value => {
-
-      //});
+      this._userHttpService.changeName(this._cookie.get('login'), this.newname).subscribe(value => {
+        console.log(value);
+      });
       console.log(this.newname);
     } else {
       console.log("error name");
