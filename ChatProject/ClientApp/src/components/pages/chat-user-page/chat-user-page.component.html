@@ -14,12 +14,12 @@
           </ul>
           <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <button type="button" class="btn btn-primary" (click)="write()">Написать сообщение</button>
-            <div *ngIf="logged; then isFriend else isNotFriend"></div>
-            <ng-template #isFriend>
-              <button type="button" class="btn btn-primary" (click)="add()">Добавить в друзья</button>
-            </ng-template>
-            <ng-template #isNotFriend>
+            <div *ngIf="isFriend; then is else isNot"></div>
+            <ng-template #is>
               <button type="button" class="btn btn-danger" (click)="remove()">Удалить из друзей</button>
+            </ng-template>
+            <ng-template #isNot>
+                <button type="button" class="btn btn-primary" (click)="add()">Добавить в друзья</button>
             </ng-template>
           </div>
       </div>

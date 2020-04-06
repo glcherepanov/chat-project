@@ -4,18 +4,18 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from '../pages/nav-menu/nav-menu.component';
 import { UserComponent } from '../pages/user/user.component';
 import { CookieService } from 'ngx-cookie-service';
 import { FriendsComponent } from '../pages/friends/friends.component';
-import { FriendComponent } from '../pages/friend/friend.component';
+import { ChatUserPageComponent } from '../pages/chat-user-page/chat-user-page.component';
 import { HttpService } from '../../HttpServices/HttpService';
 import { LoginComponent } from '../pages/login/login.component';
 import { RegistrationComponent } from '../pages/registration/registration.component';
 import { ChatPageComponent } from '../pages/ChatPage/ChatPage.component';
 import { ChatCreateComponent } from '../pages/chat-create/chat-create.component'
+import { SearchComponent } from '../pages/search/search.component'
 
 @NgModule({
   declarations: [
@@ -25,10 +25,11 @@ import { ChatCreateComponent } from '../pages/chat-create/chat-create.component'
     LoginComponent,
     RegistrationComponent,
     FriendsComponent,
-    FriendComponent,
+    ChatUserPageComponent,
     ChatListComponent,
     ChatPageComponent,
-    ChatCreateComponent
+    ChatCreateComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,7 +44,8 @@ import { ChatCreateComponent } from '../pages/chat-create/chat-create.component'
       { path: 'chat-list/create/:Login', component: ChatCreateComponent },
       { path: 'chat-list/:id', component: ChatPageComponent },
       { path: 'friends', component: FriendsComponent },
-      { path: 'friend/:login', component: FriendComponent }
+      { path: 'users/:login', component: ChatUserPageComponent },
+      { path: 'search', component: SearchComponent }
     ])
   ],
   providers: [CookieService, HttpService],

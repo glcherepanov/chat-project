@@ -25,6 +25,12 @@ export class UserHttpService {
         return this._httpService.get<UserDto[]>( 'api/user/friends', params );
     }
 
+    public getUsersByLogin( login: string ): Observable<UserDto[]> {
+        const params: HttpParams = new HttpParams()
+            .set('login', login);
+        return this._httpService.get('api/user/users-by-login', params);
+    }
+
     public getUsers(): Observable<UserDto[]> {
         return this._httpService.get<UserDto[]>('api/user/users');
     }
@@ -39,18 +45,25 @@ export class UserHttpService {
         return this._httpService.post<UserDto, boolean>('api/user/add', user);
     }
 
+    public isFriend( login: string, friend: string ): Observable<boolean> {
+        const params: HttpParams = new HttpParams()
+            .set('login', login)
+            .set('friend', friend);
+        return this._httpService.get('api/user/is-friend', params);
+    }
+
     public addFriend( userLogin: string, friendLogin: string ): Observable<boolean> {
         const params: HttpParams = new HttpParams()
-            .set('userLogin', userLogin.toString())
-            .set('friendLogin', friendLogin.toString());
+            .set('login', userLogin)
+            .set('friend', friendLogin);
         return this._httpService.post<HttpParams, boolean>('api/user/add-friend', params);
     }
 
     public removeFriend( userLogin: string, friendLogin: string ): Observable<boolean> {
         const params: HttpParams = new HttpParams()
-            .set('userLogin', userLogin.toString())
-            .set('friendLogin', friendLogin.toString());
-        return this._httpService.post<HttpParams, boolean>('api/user/add-friend', params);
+            .set('login', userLogin)
+            .set('friend', friendLogin);
+        return this._httpService.post<HttpParams, boolean>('api/user/remove-friend', params);
     }
 
     public login(login: string, password: string): Observable<boolean> {
